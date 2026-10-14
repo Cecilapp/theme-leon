@@ -30,6 +30,7 @@ leon:
     branch: main
     path: pages
   lastupdated: false
+  social: {}         # liens sociaux du pied de page (ex. {github: …})
   footer: ''
 ```
 

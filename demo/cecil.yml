@@ -50,6 +50,9 @@ languages:
         github:
           repo: https://github.com/Cecilapp/theme-leon
           path: demo/pages
+        social:
+          github: https://github.com/Cecilapp/theme-leon
+          opencollective: https://opencollective.com/cecil
         footer: 'Léon est un thème libre pour [Cecil](https://cecil.app), publié sous licence MIT.'
 # Markdown version of pages ("Copy page") and `llms.txt`
 output:
@@ -88,6 +91,9 @@ leon:
   github:
     repo: https://github.com/Cecilapp/theme-leon
     path: demo/pages
+  social:
+    github: https://github.com/Cecilapp/theme-leon
+    opencollective: https://opencollective.com/cecil
   footer: 'Léon is a free theme for [Cecil](https://cecil.app), released under the MIT license.'
 flexsearch:
   sections:
