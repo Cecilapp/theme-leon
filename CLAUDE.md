@@ -46,4 +46,8 @@ cd demo && cecil build --output=_build && php -S localhost:8000 -t _build
 
 - Dropdown menus under tabs (groups of each tab), as on Claude Code Docs: proposed, not decided.
 - Repository: <https://github.com/Cecilapp/theme-leon> (public, `main`); the demo is deployed on <https://cecilapp.github.io/theme-leon/> by `.github/workflows/demo.yml` on each push to `main`.
-- On Packagist as `cecil/theme-leon` (auto-updated by the GitHub webhook), only `dev-main` so far: no release tagged yet.
+- On Packagist as `cecil/theme-leon` (auto-updated by the GitHub webhook). Latest release: `1.0.0`.
+
+## Release
+
+Tags without prefix (`1.0.0`), and a GitHub release with a `leon.zip` asset (the README and the demo link to `releases/latest/download/leon.zip`), built with `git archive --format=zip -o leon.zip <tag>` (respects the `export-ignore` of `.gitattributes`, files at the root of the archive). The Packagist web page may lag behind: `composer show -a cecil/theme-leon` tells what Composer sees.
