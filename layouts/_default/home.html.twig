@@ -13,7 +13,7 @@
         {%- endif ~%}
         {%- if (site.flexsearch.enabled ?? true) and (page.hero.search ?? true) ~%}
         <div class="leon-hero-search mt-8 flex justify-center">
-          {{- include('partials/flexsearch/trigger.html.twig', ignore_missing = true) ~}}
+          {{- include('partials/flexsearch/trigger.html.twig', {trigger: 'full'}, ignore_missing = true) ~}}
         </div>
         {%- endif ~%}
       </header>

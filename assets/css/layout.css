@@ -249,14 +249,6 @@
       font-size: 3.25rem;
     }
   }
-  .leon-hero-search .flexsearch-trigger {
-    --flexsearch-trigger-width: 28rem;
-    height: 3rem;
-    padding-inline: 1rem;
-    border-radius: 1rem;
-    background-color: var(--leon-surface);
-    box-shadow: var(--leon-shadow);
-  }
 
   /* "Copy page" button and menu */
   .leon-copypage {

@@ -6,7 +6,7 @@
   "license": "MIT",
   "require": {
     "cecil/theme-installer": "^1.4||^2.0",
-    "cecil/theme-flexsearch": "^1.0",
+    "cecil/theme-flexsearch": "^1.1",
     "cecil/theme-darkmodetoggle": "^1.0"
   },
   "require-dev": {
