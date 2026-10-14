@@ -27,6 +27,7 @@ The maintainer speaks French: answer in French, and ask questions as decisions c
 - Léon requires **Cecil 9.11.1+**: before it, a `:::` block was closed by the first line *containing* `:::` (even in inline code), and that line was dropped ([Cecil#2507](https://github.com/Cecilapp/Cecil/pull/2507)). Now only a line made of `:::` closes a block; the overview demo page keeps a `` `:::` `` inside an accordion as a regression check.
 - The `MarkdownLink` post processor rewrites every `href="….md"` of the whole HTML output (templates included) to the HTML page URL: link to the Markdown version with `url(page, {format: 'markdown', canonical: true})` (an absolute URL is not matched), and check `'markdown' in page.output`.
 - The FlexSearch stylesheet (bundled before `leon.css`) is not in a CSS layer: Léon rules overriding it must be unlayered too (`assets/css/flexsearch.css`), a layered rule always loses. The home search box uses the `full` trigger through the `trigger` include variable (theme-flexsearch 1.1+).
+- Per language config (`languages[].config`) is not merged with the default language: `menus` are read without fallback (a language without its own `menus` has no config menu entries), and an overridden key such as `leon` replaces the whole block (repeat `github`, `header`…). The demo's French config does so.
 - `llms.txt` lists a section twice when pagination is enabled (Cecil template, not the theme).
 
 ## Develop and test

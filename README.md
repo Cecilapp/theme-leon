@@ -211,6 +211,32 @@ composer css:build # or css:watch
 
 The theme is translated in English and French: add a `translations/messages.<locale>.yml` file to your site to translate it in another language.
 
+On a multilingual site, translate the options in the `config` key of each language. Cecil doesn't merge them with the default language: menus are not inherited at all, and a `leon` key replaces the whole `leon` block, so repeat it in full (`github` included, or the "Edit this page" link disappears):
+
+```yaml
+languages:
+  - code: en
+    name: English
+    locale: en_US
+  - code: fr
+    name: Français
+    locale: fr_FR
+    config:
+      menus:
+        main:
+          - id: github
+            name: GitHub
+            url: https://github.com/<owner>/<repo>
+      leon:
+        header:
+          cta:
+            name: Commencer
+            url: /docs/
+        github:
+          repo: https://github.com/<owner>/<repo>
+        footer: 'Publié sous licence MIT.'
+```
+
 ## Demo
 
 ```bash
