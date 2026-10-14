@@ -17,7 +17,8 @@
   {%- endfor ~%}
 {%- endif ~%}
 {#- main menu links, except the home page and the sections already displayed as tabs ~#}
-{%- set tabs_ids = tabs|map(t => t.id) ~%}
+{#- menu entries created from pages have the page id without language (`docs`, not `fr/docs`) ~#}
+{%- set tabs_ids = tabs|map(t => t.idWithoutLang) ~%}
 {%- set menu_links = site.menus.main|default([])|filter(e => e.id not in tabs_ids and e.id != site.home and url(e.url) != url(site.home))|sort_by_weight ~%}
 {%- set has_sidebar = root is not null and root.type == 'section' ~%}
 <html lang="{{ site.language }}" class="scroll-pt-32">
