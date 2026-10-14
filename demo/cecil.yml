@@ -19,6 +19,38 @@ languages:
   - code: fr
     name: Français
     locale: fr_FR
+    # `menus` and `leon` are not merged with the default language: they are repeated in full
+    config:
+      baseline: Un thème de documentation pour Cecil
+      description: Léon est un thème de documentation pour Cecil, à l'allure chaleureuse et éditoriale.
+      menus:
+        main:
+          - id: cecil
+            name: Cecil
+            url: https://cecil.app
+            weight: 10
+          - id: github
+            name: GitHub
+            url: https://github.com/Cecilapp/theme-leon
+            weight: 20
+        footer:
+          - id: cecil
+            name: Site de Cecil
+            url: https://cecil.app
+            weight: 10
+          - id: themes
+            name: Thèmes
+            url: https://cecil.app/themes/
+            weight: 20
+      leon:
+        header:
+          cta:
+            name: Commencer
+            url: /docs/getting-started/quickstart/
+        github:
+          repo: https://github.com/Cecilapp/theme-leon
+          path: demo/pages
+        footer: 'Léon est un thème libre pour [Cecil](https://cecil.app), publié sous licence MIT.'
 # Markdown version of pages ("Copy page") and `llms.txt`
 output:
   pagetypeformats:
