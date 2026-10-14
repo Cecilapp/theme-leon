@@ -128,12 +128,45 @@
     }
   }
 
-  /* Language selector */
+  /* Language selector, and suggestion of the translation matching the browser language (until a language is chosen) */
   function initLanguage() {
     document.querySelectorAll('[data-leon-language]').forEach(function (select) {
       select.addEventListener('change', function () {
+        storage('leon-language', select.options[select.selectedIndex].lang || '1');
         window.location.href = select.value;
       });
+    });
+
+    var banners = document.querySelectorAll('[data-leon-language-banner]');
+    if (!banners.length || storage('leon-language')) return;
+    var current = (root.lang || '').toLowerCase();
+    var preferred = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+    var banner = null;
+    // the first browser language matching the page or one of its translations (exact code, then primary subtag)
+    preferred.some(function (language) {
+      language = language.toLowerCase();
+      var primary = language.split('-')[0];
+      var candidates = [language, primary];
+      for (var i = 0; i < candidates.length; i++) {
+        if (current === candidates[i]) return true;
+        for (var j = 0; j < banners.length; j++) {
+          if (banners[j].getAttribute('data-leon-language-banner').toLowerCase() === candidates[i]) {
+            banner = banners[j];
+            return true;
+          }
+        }
+      }
+      return false;
+    });
+    if (!banner) return;
+    // displayed until the visitor follows it or closes it
+    banner.hidden = false;
+    banner.querySelector('[data-leon-language-switch]').addEventListener('click', function () {
+      storage('leon-language', banner.lang);
+    });
+    banner.querySelector('[data-leon-language-close]').addEventListener('click', function () {
+      storage('leon-language', current || '1');
+      banner.hidden = true;
     });
   }
 

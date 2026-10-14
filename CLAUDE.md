@@ -14,6 +14,7 @@ The maintainer speaks French: answer in French, and ask questions as decisions c
 - Navigation: top level sections = **tabs**; sidebar = the current tab's tree (level 1 sub-sections as group titles, deeper ones as collapsible `<details>`).
 - Required component themes: `flexsearch` (search) and `darkmodetoggle`; `pwa` pre-wired with `ignore_missing`. Built-in `partials/metatags.html.twig` for SEO.
 - Content components use the native Cecil note syntax `:::type … :::` (rendered `<aside class="note note-type">`): callouts (`note`, `info`, `tip`, `warning`, `danger`/`caution`, `important`, `check`) styled in CSS; `tabs`, `code-group`, `steps`, `accordion`, `cards` enhanced by `assets/js/leon.js` (`####` headings split items). Blocks can't be nested.
+- Browser language (`leon.language.suggest`, opt-in): no redirect, a bottom banner (`partials/leon/language-banner.html.twig`, one per translation, written in the target language with `trans(…, locale)`) suggests the translation matching `navigator.languages`; displayed until the visitor follows it or closes it, or uses the language selector (`leon-language` in localStorage; storing it on display was too fragile: a livereload consumed it).
 - "Copy page" menu: copy Markdown (fetches the page `.md` output, falls back to the article text), view as Markdown, open in Claude / ChatGPT / Perplexity.
 
 ## Cecil gotchas learned

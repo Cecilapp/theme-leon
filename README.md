@@ -22,7 +22,7 @@ _Léon_ is a documentation theme for [Cecil](https://cecil.app), with a warm pal
 - Bundled fonts ([Hanken Grotesk](https://github.com/marcologous/hanken-grotesk) and [Newsreader](https://github.com/productiontype/Newsreader), SIL Open Font License)
 - SEO and social tags with the Cecil built-in `metatags` partial
 - Optional [PWA](https://github.com/Cecilapp/theme-pwa) support
-- Translated in English and French
+- Translated in English and French, with an optional suggestion of the page translation matching the browser language
 
 ## Installation
 
@@ -179,6 +179,8 @@ leon:
     sections: []     # ids of the sections to display as tabs (all top level sections by default)
   sidebar:
     collapsed: false # collapses the nested groups, except the one of the current page
+  language:
+    suggest: false   # suggests the translation of the page matching the browser language
   toc:
     enabled: true    # "On this page" table of contents
   copypage:
@@ -233,6 +235,8 @@ composer css:build # or css:watch
 ### Internationalization
 
 The theme is translated in English and French: add a `translations/messages.<locale>.yml` file to your site to translate it in another language.
+
+With `leon.language.suggest: true`, a banner suggests the translation of the page matching the browser language (written in that language). It stays displayed from page to page until the visitor follows it, closes it or chooses a language with the selector. Set it in the `leon` block of each language (see below).
 
 On a multilingual site, translate the options in the `config` key of each language. Cecil doesn't merge them with the default language: menus are not inherited at all, and a `leon` key replaces the whole `leon` block, so repeat it in full (`github` included, or the "Edit this page" link disappears):
 

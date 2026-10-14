@@ -1,0 +1,17 @@
+{#- Suggests the translation of the page matching the browser language (`leon.language.suggest`): one banner per translation, in its own language, displayed by `leon.js` ~#}
+{%- if (site.leon.language.suggest ?? false) and page.translations|default([])|length >= 1 ~%}
+{%- import 'macros/leon.twig' as leon_macros ~%}
+{%- for translation in page.translations ~%}
+{%- if translation.language is defined ~%}
+{%- set locale = site.language.locale(translation.language) ~%}
+{%- set link = '<a href="' ~ url(translation)|e ~ '" hreflang="' ~ translation.language|e ~ '" data-leon-language-switch>' ~ translation.language|language_name(locale)|e ~ '</a>' ~%}
+    <aside class="leon-language-banner" lang="{{ translation.language }}" aria-label="{{ 'Language'|trans({}, 'messages', locale) }}" data-leon-language-banner="{{ translation.language }}" hidden>
+      {{- leon_macros.icon('globe', 'leon-language-banner-icon size-4') -}}
+      <p>{{ 'This page is available in %language%.'|trans({'%language%': link}, 'messages', locale)|raw }}</p>
+      <button type="button" class="leon-icon-button size-8" aria-label="{{ 'Close'|trans({}, 'messages', locale) }}" data-leon-language-close>
+        {{- leon_macros.icon('close', 'size-4') -}}
+      </button>
+    </aside>
+{%- endif ~%}
+{%- endfor ~%}
+{%- endif ~%}

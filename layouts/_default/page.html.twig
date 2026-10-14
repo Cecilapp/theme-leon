@@ -86,6 +86,9 @@
     {%- block footer ~%}
     {{- include('partials/leon/footer.html.twig') ~}}
     {%- endblock footer ~%}
+    {%- block language_banner ~%}
+    {{- include('partials/leon/language-banner.html.twig') ~}}
+    {%- endblock language_banner ~%}
     {%- block scripts ~%}
     {#- search dialog (https://github.com/Cecilapp/theme-flexsearch) ~#}
     {%- if site.flexsearch.enabled ?? true ~%}

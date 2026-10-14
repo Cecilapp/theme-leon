@@ -25,6 +25,8 @@ leon:
     sections: []     # ids of the sections to display as tabs (all top level sections by default)
   sidebar:
     collapsed: false # collapses the nested groups, except the one of the current page
+  language:
+    suggest: false   # suggests the translation of the page matching the browser language
   toc:
     enabled: true    # "On this page" table of contents
   copypage:
