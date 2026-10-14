@@ -172,6 +172,7 @@ leon:
     serif: ''        # headings font family (e.g. 'Georgia, serif')
     mono: ''         # code font family
   header:
+    title: true      # displays the site title next to the logo (header and footer)
     cta: {}          # call to action button (e.g. {name: Get started, url: /docs/})
   tabs:
     enabled: true    # top level sections as tabs, each one with its own sidebar
@@ -196,7 +197,27 @@ leon:
     version: '11.17.2'
 ```
 
-The `logo` option of the site (a file, or `light` and `dark` files) is displayed before the title, in the header and in the footer (with the `baseline`). Links of the `main` menu are displayed in the header (sections displayed as tabs excepted). The footer lists the pages of each tab (its sub-sections and pages), then the links of the `footer` menu under "Resources", and the `social` links as icons: `github`, `gitlab`, `bluesky`, `mastodon`, `x`, `youtube`, `discord`, `opencollective` and `rss` (a globe for any other name).
+#### Logo
+
+The logo is set by the `logo` key at the root of the site configuration (not under `leon`), with a path relative to the `assets/` or `static/` directory. It is displayed 28 pixels high, followed by the site title, in the header and in the footer:
+
+```yaml
+logo: images/logo.svg
+```
+
+To use a different file in each color scheme, set `light` and `dark` files:
+
+```yaml
+logo:
+  light: images/logo.svg      # dark logo, displayed on the light background
+  dark: images/logo-dark.svg  # light logo, displayed on the dark background
+```
+
+If the logo already contains the name of the site, hide the title with `leon.header.title: false`.
+
+#### Menus and footer
+
+Links of the `main` menu are displayed in the header (sections displayed as tabs excepted). Under the logo, the footer displays the `baseline` of the site and the `leon.footer` text, then lists the pages of each tab (its sub-sections and pages), then the links of the `footer` menu under "Resources", and the `social` links as icons: `github`, `gitlab`, `bluesky`, `mastodon`, `x`, `youtube`, `discord`, `opencollective` and `rss` (a globe for any other name).
 
 ### Customization
 

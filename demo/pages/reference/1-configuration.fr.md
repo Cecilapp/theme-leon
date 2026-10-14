@@ -14,6 +14,7 @@ leon:
     serif: ''
     mono: ''
   header:
+    title: true      # titre du site à côté du logo
     cta: {}          # ex. {name: Commencer, url: /docs/}
   tabs:
     enabled: true
@@ -33,6 +34,26 @@ leon:
   social: {}         # liens sociaux du pied de page (ex. {github: …})
   footer: ''
 ```
+
+## Logo
+
+Le logo se définit avec la clé `logo` à la racine de la configuration du site (pas sous `leon`), avec un chemin relatif à `assets/` ou `static/`. Il est affiché avant le titre du site, dans l'en-tête et dans le pied de page :
+
+```yaml
+logo: images/logo.svg
+```
+
+Pour utiliser un fichier différent selon le mode de couleur :
+
+```yaml
+logo:
+  light: images/logo.svg      # affiché sur le fond clair
+  dark: images/logo-dark.svg  # affiché sur le fond sombre
+```
+
+:::tip
+Si le logo contient déjà le nom du site, masquez le titre avec `leon.header.title: false`.
+:::
 
 ## Formats de sortie
 
