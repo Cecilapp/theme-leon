@@ -545,6 +545,35 @@
   }
 
   /* Footer */
+  .leon-footer-title {
+    color: var(--leon-muted);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    & a:hover {
+      color: var(--leon-ink);
+    }
+  }
+  .leon-footer-link {
+    display: inline-block;
+    padding-block: 0.3125rem;
+    color: var(--leon-ink);
+    font-size: 0.875rem;
+    font-weight: 500;
+    &:hover {
+      color: var(--leon-muted);
+    }
+  }
+  .leon-select-bordered .leon-select select {
+    padding: 0.5rem 2rem 0.5rem 0.875rem;
+    border: 1px solid var(--leon-line-strong);
+    border-radius: 0.625rem;
+    background-position: right 0.75rem center;
+    color: var(--leon-muted);
+    font-size: 0.8125rem;
+    &:hover {
+      color: var(--leon-ink);
+    }
+  }
   .leon-footer-text {
     & p {
       margin: 0;

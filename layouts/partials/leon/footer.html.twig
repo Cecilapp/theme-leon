@@ -1,22 +1,71 @@
-{#- Site footer: title, footer text and footer menu ~#}
+{#- Site footer: logo, baseline and footer text, a column of links per tab and the footer menu, then social links, "Powered by Cecil" and language ~#}
+{%- import 'macros/leon.twig' as leon_macros ~%}
 {%- set footer_text = site.leon.footer|default ~%}
+{%- set social = site.leon.social|default({}) ~%}
+{%- set social_names = {github: 'GitHub', gitlab: 'GitLab', bluesky: 'Bluesky', mastodon: 'Mastodon', x: 'X', youtube: 'YouTube', discord: 'Discord', opencollective: 'Open Collective', rss: 'RSS'} ~%}
+{#- columns: each tab with its sub-sections and pages, then the footer menu ~#}
+{%- set columns = [] ~%}
+{%- for tab in tabs|default([]) ~%}
+  {%- set links = [] ~%}
+  {%- for s in tab.sections ~%}
+    {%- set links = links|merge([s]) ~%}
+  {%- endfor ~%}
+  {%- for p in tab.pages.showable ~%}
+    {%- if p.type != 'section' and p.parent and p.parent.id == tab.id ~%}
+    {%- set links = links|merge([p]) ~%}
+    {%- endif ~%}
+  {%- endfor ~%}
+  {%- set columns = columns|merge([{title: tab.title, url: tab, links: links|sort_by_weight|map(l => {name: l.sidebar_title ?? l.title, url: l})}]) ~%}
+{%- endfor ~%}
+{%- if site.menus.footer is defined ~%}
+  {%- set columns = columns|merge([{title: 'Resources'|trans, links: site.menus.footer|sort_by_weight|map(e => {name: e.name, url: e.url, external: e.url starts with 'http'})}]) ~%}
+{%- endif ~%}
     <footer id="footer" class="border-t border-line">
-      <div class="leon-container flex flex-col gap-6 py-10 text-sm text-muted md:flex-row md:items-start md:justify-between">
-        <div class="space-y-2">
-          <a href="{{ url(site.home) }}" class="font-serif text-xl text-ink">{{ site.title }}</a>
+      <div class="leon-container grid gap-12 pt-16 pb-10 lg:grid-cols-[1fr_2fr] lg:gap-8">
+        <div class="flex flex-col gap-3">
+          {{- include('partials/leon/logo.html.twig') ~}}
+          {%- if site.baseline|default ~%}
+          <p class="max-w-xs text-sm text-muted">{{ site.baseline }}</p>
+          {%- endif ~%}
           {%- if footer_text ~%}
-          <div class="leon-footer-text">{{ footer_text|replace({'%author%': site.author.name|default(site.title), '%year%': 'now'|date('Y')})|markdown_to_html }}</div>
+          <div class="leon-footer-text mt-auto max-w-sm text-xs text-faint">{{ footer_text|replace({'%author%': site.author.name|default(site.title), '%year%': 'now'|date('Y')})|markdown_to_html }}</div>
           {%- endif ~%}
         </div>
-        {%- if site.menus.footer is defined ~%}
-        <nav aria-label="{% trans %}Footer{% endtrans %}">
-          <ul class="flex flex-wrap gap-x-6 gap-y-2">
-            {%- for entry in site.menus.footer|sort_by_weight ~%}
-            <li><a href="{{ url(entry.url) }}" class="hover:text-ink">{{ entry.name }}</a></li>
-            {%- endfor ~%}
-          </ul>
+        {%- if columns is not empty ~%}
+        <nav class="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-4" aria-label="{% trans %}Footer{% endtrans %}">
+          {%- for column in columns ~%}
+          <div>
+            <h2 class="leon-footer-title">
+              {%- if column.url is defined ~%}<a href="{{ url(column.url) }}">{{ column.title }}</a>{%- else ~%}{{ column.title }}{%- endif ~%}
+            </h2>
+            {%- if column.links is not empty ~%}
+            <ul class="mt-2">
+              {%- for link in column.links ~%}
+              <li><a href="{{ url(link.url) }}" class="leon-footer-link"{% if link.external ?? false %} rel="noopener"{% endif %}>{{ link.name }}</a></li>
+              {%- endfor ~%}
+            </ul>
+            {%- endif ~%}
+          </div>
+          {%- endfor ~%}
         </nav>
         {%- endif ~%}
-        <p>{% trans with {'%cecil%': '<a href="' ~ cecil.url ~ '" class="underline decoration-line-strong underline-offset-4 hover:text-ink">Cecil</a>'} %}Powered by %cecil%{% endtrans %}</p>
+      </div>
+      <div class="leon-container">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-t border-line py-6 text-xs text-muted">
+          <div class="flex flex-wrap items-center gap-4">
+            {%- if social is not empty ~%}
+            <ul class="flex items-center gap-1">
+              {%- for name, link in social ~%}
+              <li><a href="{{ link }}" class="leon-icon-button" rel="noopener me" aria-label="{{ social_names[name] ?? name|capitalize }}" title="{{ social_names[name] ?? name|capitalize }}">{{ leon_macros.social_icon(name, 'size-4.5') }}</a></li>
+              {%- endfor ~%}
+            </ul>
+            <span class="h-4 w-px bg-line-strong" aria-hidden="true"></span>
+            {%- endif ~%}
+            <p>{% trans with {'%cecil%': '<a href="' ~ cecil.url ~ '" class="underline decoration-line-strong underline-offset-4 hover:text-ink">Cecil</a>'} %}Powered by %cecil%{% endtrans %}</p>
+          </div>
+          <div class="leon-select-bordered">
+            {{- include('partials/leon/language.html.twig', {id: 'footer'}) ~}}
+          </div>
+        </div>
       </div>
     </footer>

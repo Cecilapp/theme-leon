@@ -16,6 +16,7 @@ _Léon_ is a documentation theme for [Cecil](https://cecil.app), with a warm pal
 - Code blocks with syntax highlighting and copy button, Mermaid diagrams
 - **"Copy page"** menu: copy the page as Markdown, view it as Markdown, open it in Claude or ChatGPT
 - "Edit this page" link, "Last updated" date, previous/next pages
+- Footer with a column of links per tab, the `footer` menu, social links and the language selector
 - Home page with a hero and cards
 - Configurable accent color and fonts, design tokens as CSS custom properties
 - Bundled fonts ([Hanken Grotesk](https://github.com/marcologous/hanken-grotesk) and [Newsreader](https://github.com/productiontype/Newsreader), SIL Open Font License)
@@ -189,12 +190,13 @@ leon:
     branch: main
     path: pages
   lastupdated: false # displays the page date as "Last updated"
+  social: {}         # social links in the footer, e.g. {github: https://github.com/<user>, bluesky: https://bsky.app/profile/<user>}
   footer: ''         # footer text (supports Markdown, `%author%` and `%year%`)
   mermaid:
     version: '11.17.2'
 ```
 
-The `logo` option of the site (a file, or `light` and `dark` files) is displayed before the title. Links of the `main` menu are displayed in the header (sections displayed as tabs excepted), and links of the `footer` menu in the footer.
+The `logo` option of the site (a file, or `light` and `dark` files) is displayed before the title, in the header and in the footer (with the `baseline`). Links of the `main` menu are displayed in the header (sections displayed as tabs excepted). The footer lists the pages of each tab (its sub-sections and pages), then the links of the `footer` menu under "Resources", and the `social` links as icons: `github`, `gitlab`, `bluesky`, `mastodon`, `x`, `youtube`, `discord`, `opencollective` and `rss` (a globe for any other name).
 
 ### Customization
 
