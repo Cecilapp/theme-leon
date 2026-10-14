@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{%- set leon = site.leon|default({}) ~%}
+{#- root section of the current page: the active tab, and the scope of the sidebar ~#}
+{%- set root = null ~%}
+{%- if page.type == 'section' and (page.toplevel ?? false) ~%}
+  {%- set root = page ~%}
+{%- elseif page.ancestors|default([])|length > 0 ~%}
+  {%- set root = page.ancestors|last ~%}
+{%- endif ~%}
+{#- top level sections displayed as tabs ~#}
+{%- set tabs = [] ~%}
+{%- if leon.tabs.enabled ?? true ~%}
+  {%- for section in site.pages|filter(p => p.type == 'section' and (p.toplevel ?? false) and not (p.paginated ?? false) and not (p.exclude ?? false))|sort_by_weight ~%}
+    {%- if (leon.tabs.sections ?? []) is empty or section.section in leon.tabs.sections ~%}
+      {%- set tabs = tabs|merge([section]) ~%}
+    {%- endif ~%}
+  {%- endfor ~%}
+{%- endif ~%}
+{#- main menu links, except the home page and the sections already displayed as tabs ~#}
+{%- set tabs_ids = tabs|map(t => t.id) ~%}
+{%- set menu_links = site.menus.main|default([])|filter(e => e.id not in tabs_ids and e.id != site.home and url(e.url) != url(site.home))|sort_by_weight ~%}
+{%- set has_sidebar = root is not null and root.type == 'section' ~%}
+<html lang="{{ site.language }}" class="scroll-pt-32 lg:scroll-pt-36">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {#- dark mode, applied before the first paint (https://github.com/Cecilapp/theme-darkmodetoggle) ~#}
+    {{- include('partials/darkmodetoggle-head.html.twig', {site}, with_context = false, ignore_missing = true) ~}}
+    {{- include('partials/metatags.html.twig', {page, site}, with_context = false) ~}}
+    {%- block head_css ~%}
+    {{- include('partials/leon/fonts.html.twig', {site}, with_context = false) ~}}
+    {%- set flexsearch_css = asset('flexsearch/flexsearch.css', {ignore_missing: true}) ~%}
+    {%- if (site.flexsearch.enabled ?? true) and not flexsearch_css.missing ~%}
+    {{ html(asset(['flexsearch/flexsearch.css', 'leon.css'], {filename: 'leon.css'}), {title: 'Léon'}, {preload: true}) }}
+    {%- else ~%}
+    {{ html(asset('leon.css'), {title: 'Léon'}, {preload: true}) }}
+    {%- endif ~%}
+    {{- include('partials/leon/custom-properties.html.twig', {site}, with_context = false) ~}}
+    {%- endblock head_css ~%}
+    {#- Progressive Web App (https://github.com/Cecilapp/theme-pwa) ~#}
+    {{- include('partials/pwa.html.twig', {site}, with_context = false, ignore_missing = true) ~}}
+    {%- block head %}{% endblock ~%}
+  </head>
+  <body class="{% block body_class %}{% if has_sidebar %}has-sidebar{% endif %}{% endblock %} bg-page font-sans text-body antialiased">
+    {#- AI agents ~#}
+    {%- if 'llms' in site.output.pagetypeformats.homepage ?? [] ~%}
+    <div class="hidden" aria-hidden="true">
+      {%- trans with {'%url%': url('llms.txt', {canonical: true})} %}For AI agents: visit %url% for an index of all pages formatted in Markdown.{% endtrans %}
+      {%- if 'markdown' in site.output.pagetypeformats.page ?? [] %} {% trans %}Append .md to any page URL to get its Markdown version.{% endtrans %}{% endif ~%}
+    </div>
+    {%- endif ~%}
+    <a href="#content" class="skip-link">{% trans %}Skip to content{% endtrans %}</a>
+    {%- block header ~%}
+    {{- include('partials/leon/header.html.twig') ~}}
+    {%- endblock header ~%}
+    {%- block main ~%}
+    <div class="leon-container flex">
+      {%- block sidebar ~%}
+      {#- the sidebar is also the mobile navigation drawer ~#}
+      {{- include('partials/leon/sidebar.html.twig') ~}}
+      {%- endblock sidebar ~%}
+      <main id="main" class="min-w-0 flex-1 lg:pl-10 xl:pr-12">
+        <div class="mx-auto max-w-172 pt-8 pb-16 lg:mx-0 lg:pt-10{% if not has_sidebar %} lg:mx-auto{% endif %}">
+          {%- block page_header ~%}
+          {{- include('partials/leon/page-header.html.twig') ~}}
+          {%- endblock page_header ~%}
+          {%- block toc_mobile ~%}
+          {{- include('partials/leon/toc.html.twig', {mobile: true}) ~}}
+          {%- endblock toc_mobile ~%}
+          <article id="content" class="leon-content" tabindex="-1">
+            {%- block content ~%}
+            {{ page.content }}
+            {%- endblock content ~%}
+          </article>
+          {%- block after_content %}{% endblock ~%}
+          {%- block page_footer ~%}
+          {{- include('partials/leon/page-footer.html.twig') ~}}
+          {%- endblock page_footer ~%}
+        </div>
+      </main>
+      {%- block toc ~%}
+      {{- include('partials/leon/toc.html.twig', {mobile: false}) ~}}
+      {%- endblock toc ~%}
+    </div>
+    {%- endblock main ~%}
+    {%- block footer ~%}
+    {{- include('partials/leon/footer.html.twig') ~}}
+    {%- endblock footer ~%}
+    {%- block scripts ~%}
+    {#- search dialog (https://github.com/Cecilapp/theme-flexsearch) ~#}
+    {%- if site.flexsearch.enabled ?? true ~%}
+    {{- include('partials/flexsearch/dialog.html.twig', ignore_missing = true) ~}}
+    {%- endif ~%}
+    {{- include('partials/leon/scripts.html.twig') ~}}
+    {%- endblock scripts ~%}
+  </body>
+</html>

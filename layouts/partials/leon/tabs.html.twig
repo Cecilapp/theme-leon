@@ -1,0 +1,9 @@
+{#- Tabs: one per top level section ~#}
+      <div class="border-b border-line">
+        <nav class="leon-container leon-scrollbar-none flex h-12 items-stretch gap-6 overflow-x-auto" aria-label="{% trans %}Sections{% endtrans %}">
+          {%- for tab in tabs ~%}
+          {%- set active = root is not null and root.id == tab.id ~%}
+          <a href="{{ url(tab) }}" class="leon-tab"{% if active %} aria-current="true"{% endif %}>{{ tab.title }}</a>
+          {%- endfor ~%}
+        </nav>
+      </div>

@@ -1,0 +1,31 @@
+{#- Sidebar: navigation of the current tab (desktop), and navigation drawer (mobile) ~#}
+{%- import 'macros/leon.twig' as leon_macros ~%}
+      <div class="leon-drawer-backdrop" data-leon-drawer-close hidden></div>
+      <aside id="sidebar" class="leon-sidebar{% if has_sidebar %} lg:block{% endif %}" aria-label="{% trans %}Navigation{% endtrans %}">
+        <div class="flex h-16 items-center justify-between gap-2 px-4 lg:hidden">
+          {{- include('partials/leon/logo.html.twig') ~}}
+          <button type="button" class="leon-icon-button -mr-2" data-leon-drawer-close aria-label="{% trans %}Close navigation{% endtrans %}">
+            {{- leon_macros.icon('close', 'size-5') -}}
+          </button>
+        </div>
+        <div class="px-4 pb-8 lg:px-0 lg:pt-8">
+          {#- mobile: tabs, main menu and language ~#}
+          <div class="mb-6 space-y-1 border-b border-line pb-6 lg:hidden">
+            {%- for tab in tabs|default([]) ~%}
+            {%- set active = root is not null and root.id == tab.id ~%}
+            <a href="{{ url(tab) }}" class="leon-nav-link font-medium"{% if active %} aria-current="true"{% endif %}>{{ tab.title }}</a>
+            {%- endfor ~%}
+            {%- for entry in menu_links|default([]) ~%}
+            <a href="{{ url(entry.url) }}" class="leon-nav-link">{{ entry.name }}</a>
+            {%- endfor ~%}
+            <div class="pt-2 sm:hidden">
+              {{- include('partials/leon/language.html.twig', {id: 'drawer'}) ~}}
+            </div>
+          </div>
+          {%- if has_sidebar ~%}
+          <nav aria-label="{{ root.title }}">
+            {{- include('partials/leon/sidebar-nav.html.twig', {section: root, level: 0}) ~}}
+          </nav>
+          {%- endif ~%}
+        </div>
+      </aside>

@@ -1,0 +1,14 @@
+{#- Site logo (`logo` option: a file, or `light` and `dark` files), followed by the site title ~#}
+        <a href="{{ url(site.home) }}" class="flex shrink-0 items-center gap-2 text-ink" title="{% trans %}Home page{% endtrans %}">
+          {%- if site.logo is defined and site.logo ~%}
+          {%- if site.logo is iterable ~%}
+          {{ asset(site.logo.light)|html({alt: '', class: 'h-7 w-auto dark:hidden'}, {responsive: false}) }}
+          {{ asset(site.logo.dark)|html({alt: '', class: 'hidden h-7 w-auto dark:block'}, {responsive: false}) }}
+          {%- else ~%}
+          {{ asset(site.logo)|html({alt: '', class: 'h-7 w-auto'}, {responsive: false}) }}
+          {%- endif ~%}
+          {%- endif ~%}
+          {%- if site.leon.header.title ?? true ~%}
+          <span class="truncate font-serif text-[1.65rem] leading-none tracking-tight">{{ site.title }}</span>
+          {%- endif ~%}
+        </a>

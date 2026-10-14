@@ -1,0 +1,35 @@
+{
+  "name": "cecil/theme-leon",
+  "type": "cecil-theme",
+  "description": "Cecil Léon theme: a documentation theme with a warm and editorial look",
+  "keywords": ["Cecil", "theme", "documentation", "docs"],
+  "license": "MIT",
+  "require": {
+    "cecil/theme-installer": "^1.4||^2.0",
+    "cecil/theme-flexsearch": "^1.0",
+    "cecil/theme-darkmodetoggle": "^1.0"
+  },
+  "require-dev": {
+    "aligny/tailwind-builder": "^1.2"
+  },
+  "suggest": {
+    "cecil/theme-pwa": "Progressive Web App: web manifest, service worker and offline page"
+  },
+  "scripts": {
+    "css:build": "tailwind-builder ./assets/css/tailwind.css --output=./assets/leon.css --minify",
+    "css:watch": "tailwind-builder ./assets/css/tailwind.css --output=./assets/leon.css --watch"
+  },
+  "extra": {
+    "name": "leon",
+    "branch-alias": {
+      "dev-main": "1.x-dev"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "cecil/theme-installer": true
+    }
+  }
+}

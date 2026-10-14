@@ -1,0 +1,26 @@
+{#- Overrides the default custom properties with the theme options (accent color and fonts) ~#}
+{%- set options = site.leon|default({}) ~%}
+{%- set accent = options.accent|default ~%}
+{%- set accent_dark = options.accent_dark|default ~%}
+{%- set fonts = options.fonts|default({}) ~%}
+{%- if accent or accent_dark or fonts.sans|default or fonts.serif|default or fonts.mono|default ~%}
+    <style>{% apply minify_css ~%}
+      :root {
+        {%- if accent %}
+        --leon-accent: {{ accent }};
+        {%- endif %}
+        {%- if accent_dark or accent %}
+        --leon-accent-dark: {{ accent_dark ?: 'color-mix(in oklab, ' ~ accent ~ ' 72%, white)' }};
+        {%- endif %}
+        {%- if fonts.sans|default %}
+        --leon-font-sans: {{ fonts.sans }};
+        {%- endif %}
+        {%- if fonts.serif|default %}
+        --leon-font-serif: {{ fonts.serif }};
+        {%- endif %}
+        {%- if fonts.mono|default %}
+        --leon-font-mono: {{ fonts.mono }};
+        {%- endif %}
+      }
+    {% endapply %}</style>
+{%- endif ~%}

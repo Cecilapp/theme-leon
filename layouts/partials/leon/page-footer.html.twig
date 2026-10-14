@@ -1,0 +1,38 @@
+{#- Page footer: "Edit this page", "Last updated" and previous/next pages ~#}
+{%- import 'macros/leon.twig' as leon_macros ~%}
+{%- set github = site.leon.github|default({}) ~%}
+{%- set last_updated = page.updated ?? ((site.leon.lastupdated ?? false) ? page.date : null) ~%}
+          <footer class="mt-14">
+            {%- if github.repo|default or last_updated ~%}
+            <div class="flex flex-col gap-2 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+              {%- if github.repo|default and page.filepath|default ~%}
+              {%- set github_path = github.path|default('pages')|trim('/') ~%}
+              <a href="{{ github.repo|trim('/', 'right') }}/edit/{{ github.branch|default('main') }}/{% if github_path %}{{ github_path }}/{% endif %}{{ page.filepath|replace({'\\': '/'}) }}" class="inline-flex items-center gap-1.5 hover:text-ink" rel="noopener">
+                {{- leon_macros.icon('pencil', 'size-3.5') -}}
+                <span>{% trans %}Edit this page{% endtrans %}</span>
+              </a>
+              {%- endif ~%}
+              {%- if last_updated ~%}
+              <p>{% trans %}Last updated on{% endtrans %} <time datetime="{{ last_updated|date('c') }}">{{ last_updated|format_date('long') }}</time></p>
+              {%- endif ~%}
+            </div>
+            {%- endif ~%}
+            {%- if page.prev is defined or page.next is defined ~%}
+            <nav class="mt-8 grid gap-4 border-t border-line pt-8 sm:grid-cols-2" aria-label="{% trans %}Previous and next pages{% endtrans %}">
+              {%- if page.prev is defined ~%}
+              <a href="{{ url(page.prev) }}" class="leon-pager" rel="prev">
+                <span class="leon-pager-label">{{ leon_macros.icon('arrow-left', 'size-3.5') }}{% trans %}Previous{% endtrans %}</span>
+                <span class="leon-pager-title">{{ page.prev.title }}</span>
+              </a>
+              {%- else ~%}
+              <span class="hidden sm:block"></span>
+              {%- endif ~%}
+              {%- if page.next is defined ~%}
+              <a href="{{ url(page.next) }}" class="leon-pager sm:text-right" rel="next">
+                <span class="leon-pager-label sm:justify-end">{% trans %}Next{% endtrans %}{{ leon_macros.icon('arrow-right', 'size-3.5') }}</span>
+                <span class="leon-pager-title">{{ page.next.title }}</span>
+              </a>
+              {%- endif ~%}
+            </nav>
+            {%- endif ~%}
+          </footer>

@@ -1,0 +1,47 @@
+{#- Recursive navigation built from nested sections.
+Variables: `section` (the section to list), `level` (0 for the tab root: its sub-sections are rendered as groups) ~#}
+{%- import 'macros/leon.twig' as leon_macros ~%}
+{%- set children = [] ~%}
+{%- for s in section.sections ~%}
+  {%- set children = children|merge([s]) ~%}
+{%- endfor ~%}
+{%- for p in section.pages.showable ~%}
+  {%- if p.type != 'section' and p.parent and p.parent.id == section.id ~%}
+  {%- set children = children|merge([p]) ~%}
+  {%- endif ~%}
+{%- endfor ~%}
+{%- set children = children|sort_by_weight ~%}
+{%- set ancestors_ids = page.ancestors|default([])|map(a => a.id) ~%}
+{%- if children|length > 0 ~%}
+<ul class="{{ level == 0 ? 'leon-nav' : (level == 1 ? 'leon-nav-group-items' : 'leon-nav-nested') }}">
+  {%- for child in children ~%}
+  {%- set current = url(child) == url(page) ~%}
+  {%- if child.type == 'section' and level == 0 ~%}
+  {#- group: a title, then its pages (and the section index page, if it has content) ~#}
+  <li class="leon-nav-group">
+    <h5 class="leon-nav-group-title">{{ child.title }}</h5>
+    {%- if child.body|default|trim is not empty ~%}
+    <ul class="leon-nav-group-items">
+      <li><a href="{{ url(child) }}" class="leon-nav-link"{% if current %} aria-current="page"{% endif %}>{{ child.sidebar_title ?? 'Overview'|trans }}</a></li>
+    </ul>
+    {%- endif ~%}
+    {{- include('partials/leon/sidebar-nav.html.twig', {section: child, level: 1}) ~}}
+  </li>
+  {%- elseif child.type == 'section' ~%}
+  {#- nested section: collapsible, open if it contains the current page (or not collapsed) ~#}
+  {%- set open = current or child.id in ancestors_ids or not (child.collapsed ?? site.leon.sidebar.collapsed ?? false) ~%}
+  <li>
+    <details class="leon-nav-details"{% if open %} open{% endif %}>
+      <summary class="leon-nav-link">
+        <a href="{{ url(child) }}"{% if current %} aria-current="page"{% endif %}>{{ child.sidebar_title ?? child.title }}</a>
+        {{- leon_macros.icon('chevron-right', 'leon-nav-chevron size-3.5') -}}
+      </summary>
+      {{- include('partials/leon/sidebar-nav.html.twig', {section: child, level: level + 1}) ~}}
+    </details>
+  </li>
+  {%- else ~%}
+  <li><a href="{{ url(child) }}" class="leon-nav-link"{% if current %} aria-current="page"{% endif %}>{{ child.sidebar_title ?? child.title }}</a></li>
+  {%- endif ~%}
+  {%- endfor ~%}
+</ul>
+{%- endif ~%}

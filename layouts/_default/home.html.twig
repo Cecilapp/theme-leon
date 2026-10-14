@@ -1,0 +1,46 @@
+{% extends ['page.html.twig', '_default/page.html.twig'] %}
+
+    {%- block main ~%}
+    {%- import 'macros/leon.twig' as leon_macros ~%}
+    {#- the sidebar is only used as the mobile navigation drawer ~#}
+    {{- include('partials/leon/sidebar.html.twig') ~}}
+    <main id="main" class="leon-container pt-16 pb-24 sm:pt-24">
+      <header class="mx-auto max-w-3xl text-center">
+        <h1 class="leon-hero-title">{{ page.hero.title ?? page.title }}</h1>
+        {%- set lead = page.hero.description ?? page.description ?? site.description ?? null ~%}
+        {%- if lead ~%}
+        <p class="mx-auto mt-5 max-w-2xl text-lg leading-[1.65] text-body">{{ lead }}</p>
+        {%- endif ~%}
+        {%- if (site.flexsearch.enabled ?? true) and (page.hero.search ?? true) ~%}
+        <div class="leon-hero-search mt-8 flex justify-center">
+          {{- include('partials/flexsearch/trigger.html.twig', ignore_missing = true) ~}}
+        </div>
+        {%- endif ~%}
+      </header>
+      {#- cards: `cards` front matter variable (list of `title`, `description`, `url`), or the tabs ~#}
+      {%- set cards = page.cards ?? [] ~%}
+      {%- if cards is empty ~%}
+        {%- for tab in tabs ~%}
+          {%- set cards = cards|merge([{title: tab.title, description: tab.description ?? null, url: tab}]) ~%}
+        {%- endfor ~%}
+      {%- endif ~%}
+      {%- if cards is not empty ~%}
+      <nav class="leon-cards leon-cards-3 mx-auto mt-16 max-w-5xl" aria-label="{% trans %}Sections{% endtrans %}">
+        {%- for card in cards ~%}
+        <a href="{{ url(card.url) }}" class="leon-card">
+          <span class="leon-card-title">{{ card.title }}</span>
+          {%- if card.description ~%}
+          <span class="leon-card-description">{{ card.description }}</span>
+          {%- endif ~%}
+          <span class="leon-card-arrow">{{ leon_macros.icon('arrow-right', 'size-4') }}</span>
+        </a>
+        {%- endfor ~%}
+      </nav>
+      {%- endif ~%}
+      {%- if page.content|striptags|trim is not empty ~%}
+      <article id="content" class="leon-content mx-auto mt-16 max-w-172" tabindex="-1">
+        {{ page.content }}
+      </article>
+      {%- endif ~%}
+    </main>
+    {%- endblock main ~%}

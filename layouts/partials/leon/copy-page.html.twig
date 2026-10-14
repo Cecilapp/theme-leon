@@ -1,0 +1,44 @@
+{#- "Copy page" split button: copies the page as Markdown, with a menu to view it or to open it in an AI assistant ~#}
+{%- import 'macros/leon.twig' as leon_macros ~%}
+{%- set options = site.leon.copypage|default({}) ~%}
+{%- if (options.enabled ?? true) and (page.copypage ?? true) ~%}
+{#- Markdown version of the page (`markdown` output format), as a canonical URL: a relative `*.md` link would be rewritten by the `MarkdownLink` post processor ~#}
+{%- set has_markdown = 'markdown' in page.output|default([]) ~%}
+{%- set markdown_url = has_markdown ? url(page, {format: 'markdown', canonical: true}) : null ~%}
+{%- set source_url = markdown_url ?: url(page, {canonical: true}) ~%}
+{%- set prompt = 'Read %url% so I can ask questions about it.'|trans({'%url%': source_url}) ~%}
+{%- set assistants = {
+  'claude': {name: 'Claude', url: 'https://claude.ai/new?q='},
+  'chatgpt': {name: 'ChatGPT', url: 'https://chatgpt.com/?hints=search&q='},
+  'perplexity': {name: 'Perplexity', url: 'https://www.perplexity.ai/search?q='},
+} ~%}
+              <div class="leon-copypage" data-leon-copypage{% if has_markdown %} data-markdown-url="{{ url(page, {format: 'markdown'}) }}"{% endif %}>
+                <button type="button" class="leon-copypage-main" data-leon-copypage-copy>
+                  <span class="leon-copypage-icon">{{ leon_macros.icon('copy', 'size-4') }}{{ leon_macros.icon('check', 'size-4') }}</span>
+                  <span data-leon-copypage-label data-label-copied="{% trans %}Copied{% endtrans %}">{% trans %}Copy page{% endtrans %}</span>
+                </button>
+                <button type="button" class="leon-copypage-toggle" data-leon-copypage-toggle aria-haspopup="menu" aria-expanded="false" aria-controls="leon-copypage-menu" aria-label="{% trans %}More actions{% endtrans %}">
+                  {{- leon_macros.icon('chevron-down', 'size-4') -}}
+                </button>
+                <div id="leon-copypage-menu" class="leon-menu" role="menu" hidden>
+                  <button type="button" class="leon-menu-item" role="menuitem" data-leon-copypage-copy>
+                    {{- leon_macros.icon('copy', 'leon-menu-icon') -}}
+                    <span><span class="leon-menu-title">{% trans %}Copy page{% endtrans %}</span><span class="leon-menu-description">{% trans %}Copy page as Markdown for LLMs{% endtrans %}</span></span>
+                  </button>
+                  {%- if has_markdown ~%}
+                  <a href="{{ markdown_url }}" class="leon-menu-item" role="menuitem" target="_blank" rel="noopener">
+                    {{- leon_macros.icon('markdown', 'leon-menu-icon') -}}
+                    <span><span class="leon-menu-title">{% trans %}View as Markdown{% endtrans %}{{ leon_macros.icon('arrow-up-right', 'size-3') }}</span><span class="leon-menu-description">{% trans %}View this page as plain text{% endtrans %}</span></span>
+                  </a>
+                  {%- endif ~%}
+                  {%- for id in options.assistants ?? ['claude', 'chatgpt'] ~%}
+                  {%- if assistants[id] is defined ~%}
+                  <a href="{{ assistants[id].url ~ prompt|url_encode }}" class="leon-menu-item" role="menuitem" target="_blank" rel="noopener">
+                    {{- leon_macros.icon('sparkles', 'leon-menu-icon') -}}
+                    <span><span class="leon-menu-title">{% trans with {'%name%': assistants[id].name} %}Open in %name%{% endtrans %}{{ leon_macros.icon('arrow-up-right', 'size-3') }}</span><span class="leon-menu-description">{% trans %}Ask questions about this page{% endtrans %}</span></span>
+                  </a>
+                  {%- endif ~%}
+                  {%- endfor ~%}
+                </div>
+              </div>
+{%- endif ~%}

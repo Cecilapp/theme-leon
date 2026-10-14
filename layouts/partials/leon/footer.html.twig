@@ -1,0 +1,22 @@
+{#- Site footer: title, footer text and footer menu ~#}
+{%- set footer_text = site.leon.footer|default ~%}
+    <footer id="footer" class="border-t border-line">
+      <div class="leon-container flex flex-col gap-6 py-10 text-sm text-muted md:flex-row md:items-start md:justify-between">
+        <div class="space-y-2">
+          <a href="{{ url(site.home) }}" class="font-serif text-xl text-ink">{{ site.title }}</a>
+          {%- if footer_text ~%}
+          <div class="leon-footer-text">{{ footer_text|replace({'%author%': site.author.name|default(site.title), '%year%': 'now'|date('Y')})|markdown_to_html }}</div>
+          {%- endif ~%}
+        </div>
+        {%- if site.menus.footer is defined ~%}
+        <nav aria-label="{% trans %}Footer{% endtrans %}">
+          <ul class="flex flex-wrap gap-x-6 gap-y-2">
+            {%- for entry in site.menus.footer|sort_by_weight ~%}
+            <li><a href="{{ url(entry.url) }}" class="hover:text-ink">{{ entry.name }}</a></li>
+            {%- endfor ~%}
+          </ul>
+        </nav>
+        {%- endif ~%}
+        <p>{% trans with {'%cecil%': '<a href="' ~ cecil.url ~ '" class="underline decoration-line-strong underline-offset-4 hover:text-ink">Cecil</a>'} %}Powered by %cecil%{% endtrans %}</p>
+      </div>
+    </footer>

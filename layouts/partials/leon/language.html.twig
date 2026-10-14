@@ -1,0 +1,15 @@
+{#- Language selector (if the page is translated). Optional variable: `id` ~#}
+{%- if page.translations|default([])|length >= 1 ~%}
+{%- set select_id = 'leon-language' ~ (id is defined ? '-' ~ id : '') ~%}
+          <div class="leon-select">
+            <label for="{{ select_id }}" class="sr-only">{% trans %}Language{% endtrans %}</label>
+            <select id="{{ select_id }}" data-leon-language>
+              <option value="{{ url(page) }}" selected>{{ page.language|language_name(site.language.locale(page.language))|capitalize }}</option>
+              {%- for translation in page.translations ~%}
+              {%- if translation.language is defined ~%}
+              <option value="{{ url(translation) }}">{{ translation.language|language_name(site.language.locale(translation.language))|capitalize }}</option>
+              {%- endif ~%}
+              {%- endfor ~%}
+            </select>
+          </div>
+{%- endif ~%}

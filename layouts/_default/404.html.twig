@@ -1,0 +1,16 @@
+{% extends ['page.html.twig', '_default/page.html.twig'] %}
+
+    {%- block main ~%}
+    {{- include('partials/leon/sidebar.html.twig') ~}}
+    <main id="main" class="leon-container py-24 text-center sm:py-32">
+      <p class="leon-eyebrow">404</p>
+      <h1 class="leon-hero-title mt-3">{% trans %}Page not found{% endtrans %}</h1>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-body">{% trans %}The page you are looking for doesn't exist or has been moved.{% endtrans %}</p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a href="{{ url(site.home) }}" class="leon-cta">{% trans %}Back to home{% endtrans %}</a>
+        {%- if site.flexsearch.enabled ?? true ~%}
+        {{- include('partials/flexsearch/trigger.html.twig', ignore_missing = true) ~}}
+        {%- endif ~%}
+      </div>
+    </main>
+    {%- endblock main ~%}

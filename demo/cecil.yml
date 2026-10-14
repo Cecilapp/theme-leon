@@ -1,0 +1,65 @@
+# Demo site of the Léon theme
+title: Léon
+baseline: A documentation theme for Cecil
+description: Léon is a documentation theme for Cecil, with a warm and editorial look.
+baseurl: http://localhost:8000/
+author:
+  name: Cecil
+  url: https://cecil.app
+# `themes/leon` links to the root of this repository (see `link.php`)
+theme:
+  - leon
+  - flexsearch
+  - darkmodetoggle
+language: en
+languages:
+  - code: en
+    name: English
+    locale: en_US
+  - code: fr
+    name: Français
+    locale: fr_FR
+# Markdown version of pages ("Copy page") and `llms.txt`
+output:
+  pagetypeformats:
+    page: [html, markdown]
+    section: [html, markdown]
+    homepage: [html, llms]
+pages:
+  sortby: weight
+  pagination:
+    enabled: false
+menus:
+  main:
+    - id: cecil
+      name: Cecil
+      url: https://cecil.app
+      weight: 10
+    - id: github
+      name: GitHub
+      url: https://github.com/Cecilapp/theme-leon
+      weight: 20
+  footer:
+    - id: cecil
+      name: Cecil website
+      url: https://cecil.app
+      weight: 10
+    - id: themes
+      name: Themes
+      url: https://cecil.app/themes/
+      weight: 20
+leon:
+  header:
+    cta:
+      name: Get started
+      url: /docs/getting-started/quickstart/
+  github:
+    repo: https://github.com/Cecilapp/theme-leon
+    path: demo/pages
+  footer: 'Léon is a free theme for [Cecil](https://cecil.app), released under the MIT license.'
+flexsearch:
+  sections:
+    docs:
+      limit: 6
+    reference:
+      limit: 4

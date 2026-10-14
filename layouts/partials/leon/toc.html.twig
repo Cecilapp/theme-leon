@@ -1,0 +1,33 @@
+{#- "On this page" table of contents. Variable: `mobile` (collapsible block above the content) or the right column ~#}
+{%- import 'macros/leon.twig' as leon_macros ~%}
+{%- if (site.leon.toc.enabled ?? true) and (page.toc ?? true) ~%}
+{%- set toc = page.body|toc ~%}
+{%- if toc|striptags|trim is not empty ~%}
+{%- if mobile ~%}
+          <details class="leon-toc-mobile xl:hidden">
+            <summary>
+              {{- leon_macros.icon('list', 'size-4') -}}
+              <span>{% trans %}On this page{% endtrans %}</span>
+              {{- leon_macros.icon('chevron-down', 'leon-toc-mobile-chevron ml-auto size-4') -}}
+            </summary>
+            <nav class="leon-toc" aria-label="{% trans %}On this page{% endtrans %}">{{ toc }}</nav>
+          </details>
+{%- else ~%}
+      <aside id="toc" class="leon-toc-column hidden xl:block" data-leon-toc>
+        <div class="sticky top-28 pt-10">
+          <button type="button" class="leon-toc-toggle" data-leon-toc-toggle aria-controls="toc-nav" aria-expanded="true" aria-label="{% trans %}Hide the table of contents{% endtrans %}" data-label-show="{% trans %}Show the table of contents{% endtrans %}" data-label-hide="{% trans %}Hide the table of contents{% endtrans %}">
+            {{- leon_macros.icon('chevron-right', 'leon-toc-toggle-chevron size-3.5') -}}
+            {{- leon_macros.icon('list', 'leon-toc-toggle-list size-3.5') -}}
+          </button>
+          <div id="toc-nav">
+            <p class="mb-3 flex items-center gap-2 font-serif text-[15px] text-ink">
+              {{- leon_macros.icon('list', 'size-3.5 text-muted') -}}
+              <span>{% trans %}On this page{% endtrans %}</span>
+            </p>
+            <nav class="leon-toc max-h-[calc(100dvh-12rem)] overflow-y-auto pb-8" aria-label="{% trans %}On this page{% endtrans %}" data-leon-toc-nav>{{ toc }}</nav>
+          </div>
+        </div>
+      </aside>
+{%- endif ~%}
+{%- endif ~%}
+{%- endif ~%}

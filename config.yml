@@ -1,0 +1,42 @@
+# Cecil config required by Léon
+pages:
+  body:
+    highlight:
+      enabled: true
+    images:
+      caption:
+        enabled: true
+    links:
+      embed:
+        enabled: true
+# Léon options
+leon:
+  accent: ''         # accent color (e.g. '#2563eb'), clay ('#D97757') by default
+  accent_dark: ''    # accent color in dark mode, derived from `accent` by default
+  fonts:
+    bundled: true    # loads the bundled fonts (Hanken Grotesk and Newsreader), false to use your own
+    sans: ''         # body font family (e.g. 'Inter, sans-serif')
+    serif: ''        # headings font family (e.g. 'Georgia, serif')
+    mono: ''         # code font family
+  header:
+    cta: {}          # call to action button (e.g. {name: Get started, url: /docs/})
+  tabs:
+    enabled: true    # top level sections as tabs, each one with its own sidebar
+    sections: []     # ids of the sections to display as tabs (all top level sections by default)
+  sidebar:
+    collapsed: false # collapses the nested groups, except the one of the current page
+  toc:
+    enabled: true    # "On this page" table of contents
+  copypage:
+    enabled: true    # "Copy page" button and menu
+    assistants:      # "Open in…" entries
+      - claude
+      - chatgpt
+  github:
+    repo: ''         # e.g. https://github.com/<user>/<repo>, enables "Edit this page"
+    branch: main
+    path: pages
+  lastupdated: false # displays the page date as "Last updated" (the `updated` front matter variable is always displayed)
+  footer: ''         # footer text (supports Markdown, `%author%` and `%year%`)
+  mermaid:
+    version: '11.17.2'

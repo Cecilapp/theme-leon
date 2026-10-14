@@ -1,0 +1,41 @@
+{#- Site header: logo, language, search, links and call to action, then tabs ~#}
+{%- import 'macros/leon.twig' as leon_macros ~%}
+{%- set cta = site.leon.header.cta|default({}) ~%}
+    <header id="header" class="sticky top-0 z-40 bg-page/90 backdrop-blur-md supports-backdrop-filter:bg-page/80">
+      <div class="leon-container flex h-16 items-center gap-2 lg:gap-4">
+        {%- if has_sidebar|default(false) or tabs|default([])|length > 0 ~%}
+        <button type="button" class="leon-icon-button -ml-2 lg:hidden" data-leon-drawer-open aria-controls="sidebar" aria-expanded="false" aria-label="{% trans %}Open navigation{% endtrans %}">
+          {{- leon_macros.icon('menu', 'size-5') -}}
+        </button>
+        {%- endif ~%}
+        {{- include('partials/leon/logo.html.twig') ~}}
+        <div class="hidden sm:block">
+          {{- include('partials/leon/language.html.twig') ~}}
+        </div>
+        <div class="flex flex-1 justify-end md:justify-center md:px-4">
+          {%- if site.flexsearch.enabled ?? true ~%}
+          {{- include('partials/flexsearch/trigger.html.twig', ignore_missing = true) ~}}
+          {%- endif ~%}
+        </div>
+        {%- if menu_links|default([])|length > 0 ~%}
+        <nav class="hidden items-center gap-6 xl:flex" aria-label="{% trans %}Main menu{% endtrans %}">
+          {%- for entry in menu_links ~%}
+          {%- set external = entry.url starts with 'http' ~%}
+          <a href="{{ url(entry.url) }}" class="text-[15px] font-medium text-ink hover:text-muted"{% if external %} rel="noopener"{% endif %}{% if url(entry.url) == url(page) %} aria-current="page"{% endif %}>{{ entry.name }}</a>
+          {%- endfor ~%}
+        </nav>
+        {%- endif ~%}
+        {%- if cta.url|default ~%}
+        <a href="{{ url(cta.url) }}" class="leon-cta hidden sm:inline-flex">
+          <span>{{ cta.name|default('Get started'|trans) }}</span>
+          {{- leon_macros.icon('chevron-right', 'size-4') -}}
+        </a>
+        {%- endif ~%}
+        {{- include('partials/darkmodetoggle.html.twig', {class: 'leon-icon-button', label: 'Toggle dark mode'|trans}, ignore_missing = true) ~}}
+      </div>
+      {%- if tabs|default([])|length > 0 ~%}
+      {{- include('partials/leon/tabs.html.twig') ~}}
+      {%- else ~%}
+      <div class="border-b border-line"></div>
+      {%- endif ~%}
+    </header>

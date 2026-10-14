@@ -1,0 +1,14 @@
+{#- Scripts: Léon behaviors (navigation drawer, table of contents, code blocks, components, "Copy page") and Mermaid ~#}
+    <script>window.leon = {{ {
+      i18n: {
+        copy: 'Copy'|trans,
+        copied: 'Copied'|trans,
+        copyCode: 'Copy code'|trans,
+        permalink: 'Permalink to this section'|trans,
+      },
+    }|json_encode|raw }};</script>
+    {{ html(asset('js/leon.js'), {defer: ''}) }}
+    {#- Mermaid: loaded only on pages containing a diagram ~#}
+    {%- if 'language-mermaid' in page.content ~%}
+    {{ html(asset('https://cdn.jsdelivr.net/npm/mermaid@' ~ (site.leon.mermaid.version ?? '11.17.2') ~ '/dist/mermaid.min.js', {minify: false}), {id: 'leon-mermaid', defer: ''}) }}
+    {%- endif ~%}

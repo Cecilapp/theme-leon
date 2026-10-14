@@ -1,0 +1,50 @@
+/* FlexSearch component theme, styled with the Léon tokens */
+:root {
+  --flexsearch-color: var(--leon-body);
+  --flexsearch-bg: var(--leon-surface);
+  --flexsearch-heading-color: var(--leon-ink);
+  --flexsearch-muted: var(--leon-muted);
+  --flexsearch-subtle: var(--leon-faint);
+  --flexsearch-border: var(--leon-line-strong);
+  --flexsearch-divider: var(--leon-line);
+  --flexsearch-surface: var(--leon-subtle);
+  --flexsearch-surface-color: var(--leon-muted);
+  --flexsearch-surface-border: var(--leon-line);
+  --flexsearch-accent: var(--leon-ink);
+  --flexsearch-mark-color: var(--leon-accent-text);
+  --flexsearch-selected-bg: var(--leon-active);
+  --flexsearch-selected-color: var(--leon-active-text);
+  --flexsearch-backdrop: rgb(10 10 10 / 0.45);
+  --flexsearch-radius: 1rem;
+  --flexsearch-trigger-width: 16rem;
+}
+
+@layer components {
+  #header button.flexsearch-trigger {
+    height: 2.375rem;
+    padding-inline: 0.75rem 0.5rem;
+    border-color: var(--leon-line-strong);
+    border-radius: 0.75rem;
+    background-color: var(--leon-page);
+    &:hover {
+      border-color: var(--leon-faint);
+    }
+    & .flexsearch-trigger-icon {
+      width: 1rem;
+      height: 1rem;
+      color: var(--leon-muted);
+    }
+  }
+  @media (max-width: 767px) {
+    #header button.flexsearch-trigger:not(.flexsearch-trigger-full) {
+      width: 2.25rem;
+      padding: 0;
+      border-color: transparent;
+      background: none;
+      & .flexsearch-trigger-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+  }
+}

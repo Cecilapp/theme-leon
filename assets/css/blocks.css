@@ -1,0 +1,356 @@
+/*
+ * Blocks written with the Cecil note syntax (`:::type` … `:::`), rendered as `<aside class="note note-type">`:
+ * callouts (note, info, tip, warning, danger…), and components enhanced by `leon.js` (tabs, code-group, steps, accordion, cards).
+ */
+@layer components {
+  .leon-content .note {
+    --note-color: var(--leon-muted);
+    --note-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4m0-4h.01'/%3E%3C/svg%3E");
+    position: relative;
+    margin-block: 1.5rem;
+    padding: 0.875rem 1.25rem 0.875rem 3rem;
+    border: 1px solid color-mix(in oklab, var(--note-color) 24%, transparent);
+    border-radius: 1rem;
+    background-color: color-mix(in oklab, var(--note-color) 5%, var(--leon-page));
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 1.125rem;
+      left: 1.25rem;
+      width: 1rem;
+      height: 1rem;
+      background-color: var(--note-color);
+      mask: var(--note-icon) center / contain no-repeat;
+    }
+    & > :first-child {
+      margin-top: 0;
+    }
+    & > :last-child {
+      margin-bottom: 0;
+    }
+    & p,
+    & :is(ul, ol) {
+      margin-block: 0.625rem;
+    }
+    & pre,
+    & .leon-code {
+      margin-block: 0.75rem;
+    }
+    & pre {
+      background-color: var(--leon-surface);
+    }
+  }
+  .leon-content .note-note {
+    --note-color: #0284c7;
+    --note-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 3v5h5M9 13h6m-6 4h6'/%3E%3C/svg%3E");
+  }
+  .leon-content .note-tip,
+  .leon-content .note-check,
+  .leon-content .note-success {
+    --note-color: #059669;
+    --note-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18h6m-5 4h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z'/%3E%3C/svg%3E");
+  }
+  .leon-content :is(.note-check, .note-success) {
+    --note-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m8 12 3 3 5-6'/%3E%3C/svg%3E");
+  }
+  .leon-content .note-warning {
+    --note-color: #d97706;
+    --note-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3zM12 9v4m0 4h.01'/%3E%3C/svg%3E");
+  }
+  .leon-content :is(.note-danger, .note-caution) {
+    --note-color: #dc2626;
+    --note-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7.9 2h8.2L22 7.9v8.2L16.1 22H7.9L2 16.1V7.9z'/%3E%3Cpath d='M12 8v4m0 4h.01'/%3E%3C/svg%3E");
+  }
+  .leon-content .note-important {
+    --note-color: var(--leon-accent);
+    --note-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'/%3E%3Cpath d='M12 7v4m0 4h.01'/%3E%3C/svg%3E");
+  }
+  :is(.dark, [data-theme="dark"]) .leon-content {
+    & .note {
+      background-color: color-mix(in oklab, var(--note-color) 9%, var(--leon-page));
+    }
+    & .note-note {
+      --note-color: #38bdf8;
+    }
+    & :is(.note-tip, .note-check, .note-success) {
+      --note-color: #34d399;
+    }
+    & .note-warning {
+      --note-color: #fbbf24;
+    }
+    & :is(.note-danger, .note-caution) {
+      --note-color: #f87171;
+    }
+    & .note-important {
+      --note-color: var(--leon-accent-dark);
+    }
+  }
+
+  /* components: no callout frame */
+  .leon-content :is(.note-tabs, .note-code-group, .note-steps, .note-accordion, .note-cards) {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    font-size: inherit;
+    line-height: inherit;
+    &::before {
+      content: none;
+    }
+  }
+
+  /* tabs */
+  .leon-tablist {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.25rem;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--leon-line);
+    scrollbar-width: none;
+  }
+  .leon-tab-button {
+    position: relative;
+    flex: none;
+    padding-block: 0.625rem;
+    color: var(--leon-muted);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.15s;
+    &:hover {
+      color: var(--leon-ink);
+    }
+    &[aria-selected='true'] {
+      color: var(--leon-ink);
+      font-weight: 600;
+      &::after {
+        content: '';
+        position: absolute;
+        inset: auto 0 -1px;
+        height: 1.5px;
+        background-color: var(--leon-ink);
+      }
+    }
+  }
+  .leon-tabpanel {
+    & > :first-child {
+      margin-top: 0;
+    }
+    & > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /* code group: tabs in a code block header */
+  .leon-content .note-code-group {
+    overflow: hidden;
+    border: 1px solid var(--leon-line);
+    border-radius: 1rem;
+    background-color: var(--leon-surface);
+    & .leon-tablist {
+      gap: 0.25rem;
+      margin: 0;
+      padding-inline: 0.75rem;
+      background-color: color-mix(in oklab, var(--leon-subtle) 60%, var(--leon-surface));
+    }
+    & .leon-tab-button {
+      padding: 0.5rem 0.5rem;
+      font-size: 0.8125rem;
+    }
+    & :is(pre, .leon-code) {
+      margin: 0;
+    }
+    & pre {
+      border: 0;
+      border-radius: 0;
+    }
+  }
+
+  /* steps */
+  .leon-content .note-steps {
+    counter-reset: leon-step;
+  }
+  .leon-step {
+    position: relative;
+    padding: 0 0 1.75rem 2.75rem;
+    counter-increment: leon-step;
+    &::before {
+      content: counter(leon-step);
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border: 1px solid var(--leon-line-strong);
+      border-radius: 9999px;
+      background-color: var(--leon-page);
+      color: var(--leon-ink);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      top: 2.25rem;
+      bottom: 0.5rem;
+      left: calc(0.875rem - 0.5px);
+      width: 1px;
+      background-color: var(--leon-line-strong);
+    }
+    &:last-child {
+      padding-bottom: 0;
+      &::after {
+        content: none;
+      }
+    }
+    & > :is(h4, h5) {
+      margin: 0.125rem 0 0.5rem;
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+    & > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /* accordions (and native details) */
+  .leon-content .note-accordion {
+    border: 1px solid var(--leon-line);
+    border-radius: 1rem;
+    & > .leon-accordion + .leon-accordion {
+      border-top: 1px solid var(--leon-line);
+    }
+  }
+  .leon-content details:not([class]),
+  .leon-content .leon-accordion {
+    margin-block: 1rem;
+    & > summary {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1.25rem;
+      color: var(--leon-ink);
+      font-weight: 500;
+      list-style: none;
+      cursor: pointer;
+      &::-webkit-details-marker {
+        display: none;
+      }
+      &::before {
+        content: '';
+        flex: none;
+        width: 0.875rem;
+        height: 0.875rem;
+        background-color: var(--leon-muted);
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 6 6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+        transition: transform 0.15s;
+      }
+    }
+    &[open] > summary::before {
+      transform: rotate(90deg);
+    }
+    & > .leon-accordion-content,
+    & > :not(summary) {
+      padding-inline: 1.25rem 1.25rem;
+    }
+    & > .leon-accordion-content {
+      padding-bottom: 1rem;
+      padding-left: 2.875rem;
+      & > :first-child {
+        margin-top: 0;
+      }
+      & > :last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .leon-content details:not([class]) {
+    border: 1px solid var(--leon-line);
+    border-radius: 1rem;
+    & > :last-child:not(summary) {
+      margin-bottom: 1rem;
+    }
+  }
+  .leon-content .leon-accordion {
+    margin: 0;
+  }
+
+  /* cards: a list of links */
+  .leon-content .note-cards > ul {
+    display: grid;
+    gap: 1rem;
+    margin-block: 1.5rem;
+    padding: 0;
+    list-style: none;
+    @variant sm {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    & > li {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin: 0;
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--leon-line);
+      border-radius: 1rem;
+      background-color: var(--leon-surface);
+      color: var(--leon-muted);
+      font-size: 0.875rem;
+      line-height: 1.55;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      &:hover {
+        border-color: var(--leon-line-strong);
+        box-shadow: var(--leon-shadow);
+      }
+      & > a:first-child {
+        color: var(--leon-ink);
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+        }
+      }
+    }
+  }
+
+  /* Mermaid diagrams, on graph paper */
+  .leon-content pre:has(> code.language-mermaid) {
+    display: flex;
+    justify-content: center;
+    padding: 1.25rem;
+    border-color: color-mix(in oklab, #ebdbbc 60%, transparent);
+    background-color: #fdfdfb;
+    background-image:
+      linear-gradient(rgb(235 219 188 / 0.25) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(235 219 188 / 0.25) 1px, transparent 1px),
+      linear-gradient(rgb(235 219 188 / 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(235 219 188 / 0.1) 1px, transparent 1px);
+    background-position: -1px -1px;
+    background-size: 20px 20px, 20px 20px, 4px 4px, 4px 4px;
+    & code {
+      width: auto;
+      min-width: 0;
+    }
+  }
+  :is(.dark, [data-theme="dark"]) .leon-content pre:has(> code.language-mermaid) {
+    border-color: rgb(102 102 99 / 0.5);
+    background-color: #1a1918;
+    background-image:
+      linear-gradient(rgb(212 162 127 / 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(212 162 127 / 0.15) 1px, transparent 1px),
+      linear-gradient(rgb(212 162 127 / 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(212 162 127 / 0.08) 1px, transparent 1px);
+  }
+}

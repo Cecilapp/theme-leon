@@ -1,0 +1,40 @@
+{% extends ['page.html.twig', '_default/page.html.twig'] %}
+
+          {#- sub-sections and pages of the section, as cards ~#}
+          {%- block after_content ~%}
+          {%- if page.type == 'section' and (page.cards ?? true) ~%}
+          {%- set children = [] ~%}
+          {%- for s in page.sections ~%}
+            {%- set children = children|merge([s]) ~%}
+          {%- endfor ~%}
+          {%- for p in page.pages.showable ~%}
+            {%- if p.type != 'section' and p.parent and p.parent.id == page.id ~%}
+            {%- set children = children|merge([p]) ~%}
+            {%- endif ~%}
+          {%- endfor ~%}
+          {%- if children is not empty ~%}
+          <nav class="leon-cards mt-10" aria-label="{{ page.title }}">
+            {%- for child in children|sort_by_weight ~%}
+            <a href="{{ url(child) }}" class="leon-card">
+              <span class="leon-card-title">{{ child.title }}</span>
+              {%- if child.description is defined and child.description ~%}
+              <span class="leon-card-description">{{ child.description }}</span>
+              {%- endif ~%}
+            </a>
+            {%- endfor ~%}
+          </nav>
+          {%- endif ~%}
+          {#- taxonomy pages (vocabulary and terms) ~#}
+          {%- elseif page.pages is defined and page.pages|length > 0 ~%}
+          <nav class="leon-cards mt-10" aria-label="{{ page.title }}">
+            {%- for child in page.pages ~%}
+            <a href="{{ url(child) }}" class="leon-card">
+              <span class="leon-card-title">{{ child.title }}</span>
+              {%- if child.description is defined and child.description ~%}
+              <span class="leon-card-description">{{ child.description }}</span>
+              {%- endif ~%}
+            </a>
+            {%- endfor ~%}
+          </nav>
+          {%- endif ~%}
+          {%- endblock after_content ~%}

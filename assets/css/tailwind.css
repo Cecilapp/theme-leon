@@ -1,0 +1,88 @@
+/*!
+ * Léon theme for Cecil
+ * https://github.com/Cecilapp/theme-leon
+ */
+@import 'tailwindcss';
+@source '../../layouts';
+
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
+/*
+ * Design tokens: override them in your own `:root` (and `.dark`) rules,
+ * or with the `leon.accent` and `leon.fonts` options.
+ */
+:root {
+  --leon-accent: #d97757;
+  --leon-accent-dark: #d4a27f;
+  --leon-font-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --leon-font-serif: 'Newsreader', ui-serif, Georgia, Cambria, 'Times New Roman', serif;
+  --leon-font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --leon-page: #fdfdf7;
+  --leon-surface: #ffffff;
+  --leon-subtle: #f4f4ef;
+  --leon-active: #e8e8e2;
+  --leon-ink: #141413;
+  --leon-body: #3d3d3a;
+  --leon-muted: #6b6a65;
+  --leon-faint: #9c9a92;
+  --leon-line: rgb(20 20 19 / 0.09);
+  --leon-line-strong: rgb(20 20 19 / 0.17);
+  --leon-accent-text: color-mix(in oklab, var(--leon-accent) 78%, black);
+  --leon-active-text: var(--leon-ink);
+  --leon-toc-active: var(--leon-ink);
+  --leon-link-decoration: var(--leon-accent);
+  --leon-cta: #0e0e0e;
+  --leon-cta-text: #ffffff;
+  --leon-shadow: 0 1px 2px rgb(20 20 19 / 0.04), 0 8px 24px -8px rgb(20 20 19 / 0.12);
+  color-scheme: light;
+}
+
+:root.dark,
+:root[data-theme="dark"] {
+  --leon-page: #09090b;
+  --leon-surface: #0f0f11;
+  --leon-subtle: #18181b;
+  --leon-active: color-mix(in oklab, var(--leon-accent-dark) 11%, var(--leon-page));
+  --leon-ink: #ededeb;
+  --leon-body: #b0afa9;
+  --leon-muted: #8d8c85;
+  --leon-faint: #65645f;
+  --leon-line: rgb(255 255 255 / 0.08);
+  --leon-line-strong: rgb(255 255 255 / 0.16);
+  --leon-accent-text: var(--leon-accent-dark);
+  --leon-active-text: var(--leon-accent-dark);
+  --leon-toc-active: var(--leon-accent-dark);
+  --leon-link-decoration: var(--leon-accent-dark);
+  --leon-cta: #f4f4f1;
+  --leon-cta-text: #0e0e0e;
+  --leon-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -8px rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-page: var(--leon-page);
+  --color-surface: var(--leon-surface);
+  --color-subtle: var(--leon-subtle);
+  --color-active: var(--leon-active);
+  --color-ink: var(--leon-ink);
+  --color-body: var(--leon-body);
+  --color-muted: var(--leon-muted);
+  --color-faint: var(--leon-faint);
+  --color-line: var(--leon-line);
+  --color-line-strong: var(--leon-line-strong);
+  --color-accent: var(--leon-accent);
+  --color-accent-text: var(--leon-accent-text);
+  --color-cta: var(--leon-cta);
+  --color-cta-text: var(--leon-cta-text);
+  --font-sans: var(--leon-font-sans);
+  --font-serif: var(--leon-font-serif);
+  --font-mono: var(--leon-font-mono);
+}
+
+@import './base.css';
+@import './layout.css';
+@import './content.css';
+@import './blocks.css';
+@import './highlight.css';
+@import './flexsearch.css';
