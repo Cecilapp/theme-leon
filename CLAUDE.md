@@ -40,7 +40,7 @@ php demo/link.php
 cd demo && cecil build --output=_build && php -S localhost:8000 -t _build
 ```
 
-- `cecil serve` does not pick up changes made through the `demo/themes/leon` junction: rebuild instead. `demo/_site` may be locked by VS Code on Windows, hence `_build`.
+- `cecil serve` does not pick up changes made through the `demo/themes/leon` junction: rebuild instead. Translations are cached: rebuild with `--clear-cache` after editing `translations/`. `demo/_site` may be locked by VS Code on Windows, hence `_build`.
 - Check visually with `playwright-cli` (light/dark via `window.colorScheme.set('dark')`, mobile 390×844).
 - Conventions: 2-space indent, LF, Twig files without trailing newline, every UI string in `{% trans %}` + `translations/messages.fr.yml`.
 
