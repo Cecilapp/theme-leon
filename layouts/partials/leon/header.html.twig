@@ -1,4 +1,4 @@
-{#- Site header: logo, language, search, links and call to action, then tabs ~#}
+{#- Site header: logo, search, links, language and call to action, then tabs ~#}
 {%- import 'macros/leon.twig' as leon_macros ~%}
 {%- set cta = site.leon.header.cta|default({}) ~%}
     <header id="header" class="sticky top-0 z-40 bg-page/90 backdrop-blur-md supports-backdrop-filter:bg-page/80">
@@ -9,9 +9,6 @@
         </button>
         {%- endif ~%}
         {{- include('partials/leon/logo.html.twig') ~}}
-        <div class="hidden sm:block">
-          {{- include('partials/leon/language.html.twig') ~}}
-        </div>
         <div class="flex flex-1 justify-end md:justify-center md:px-4">
           {%- if site.flexsearch.enabled ?? true ~%}
           {{- include('partials/flexsearch/trigger.html.twig', ignore_missing = true) ~}}
@@ -25,6 +22,9 @@
           {%- endfor ~%}
         </nav>
         {%- endif ~%}
+        <div class="hidden sm:block">
+          {{- include('partials/leon/language.html.twig') ~}}
+        </div>
         {%- if cta.url|default ~%}
         <a href="{{ url(cta.url) }}" class="leon-cta hidden sm:inline-flex">
           <span>{{ cta.name|default('Get started'|trans) }}</span>
