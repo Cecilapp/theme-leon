@@ -45,4 +45,5 @@ cd demo && cecil build --output=_build && php -S localhost:8000 -t _build
 ## Open items
 
 - Dropdown menus under tabs (groups of each tab), as on Claude Code Docs: proposed, not decided.
-- Git repository not initialized yet; GitHub Pages demo workflow in `.github/workflows/demo.yml` targets `Cecilapp/theme-leon`.
+- Repository: <https://github.com/Cecilapp/theme-leon> (public, `main`); the demo is deployed on <https://cecilapp.github.io/theme-leon/> by `.github/workflows/demo.yml` on each push to `main`.
+- On Packagist as `cecil/theme-leon` (auto-updated by the GitHub webhook), only `dev-main` so far: no release tagged yet.
