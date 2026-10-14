@@ -20,7 +20,7 @@
 {%- set tabs_ids = tabs|map(t => t.id) ~%}
 {%- set menu_links = site.menus.main|default([])|filter(e => e.id not in tabs_ids and e.id != site.home and url(e.url) != url(site.home))|sort_by_weight ~%}
 {%- set has_sidebar = root is not null and root.type == 'section' ~%}
-<html lang="{{ site.language }}" class="scroll-pt-32 lg:scroll-pt-36">
+<html lang="{{ site.language }}" class="scroll-pt-32">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

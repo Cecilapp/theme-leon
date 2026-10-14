@@ -60,7 +60,6 @@
       font-optical-sizing: auto;
       font-weight: 400;
       text-wrap: balance;
-      scroll-margin-top: 8rem;
     }
     & h1 {
       margin: 0 0 1.5rem;
@@ -82,7 +81,6 @@
       margin: 1.75rem 0 0.5rem;
       color: var(--leon-ink);
       font-weight: 600;
-      scroll-margin-top: 8rem;
     }
     & h4 {
       font-size: 1.0625rem;
