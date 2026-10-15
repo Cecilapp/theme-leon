@@ -465,7 +465,7 @@
       }
     }
   }
-  /* bar stuck below the header while scrolling, full width below `lg` (the column is centered) */
+  /* bar stuck below the header while scrolling, full width below `lg` (the column is centered), slightly wider than the column from `lg` (entries stay aligned with the content) */
   .leon-toc-mobile {
     position: sticky;
     top: var(--leon-header-height);
@@ -477,8 +477,8 @@
     background-color: color-mix(in oklab, var(--leon-page) 90%, transparent);
     backdrop-filter: blur(12px);
     @variant lg {
-      margin-inline: 0;
-      padding-inline: 0;
+      margin-inline: -1rem;
+      padding-inline: 1rem;
     }
     &[open] {
       box-shadow: var(--leon-shadow);
