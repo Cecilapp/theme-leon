@@ -51,7 +51,7 @@ cd demo && cecil build --output=_build && php -S localhost:8000 -t _build
 
 - Dropdown menus under tabs (groups of each tab), as on Claude Code Docs: proposed, not decided.
 - Repository: <https://github.com/Cecilapp/theme-leon> (public, `main`); the demo is deployed on <https://cecilapp.github.io/theme-leon/> by `.github/workflows/demo.yml` on each push to `main`.
-- On Packagist as `cecil/theme-leon` (auto-updated by the GitHub webhook). Latest release: `1.2.0`.
+- On Packagist as `cecil/theme-leon` (auto-updated by the GitHub webhook). Latest release: `1.3.0`.
 
 ## Release
 
