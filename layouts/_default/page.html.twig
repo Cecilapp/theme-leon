@@ -21,7 +21,7 @@
 {%- set tabs_ids = tabs|map(t => t.idWithoutLang) ~%}
 {%- set menu_links = site.menus.main|default([])|filter(e => e.id not in tabs_ids and e.id != site.home and url(e.url) != url(site.home))|sort_by_weight ~%}
 {%- set has_sidebar = root is not null and root.type == 'section' ~%}
-<html lang="{{ site.language }}" class="scroll-pt-32">
+<html lang="{{ site.language }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,7 +57,8 @@
     {{- include('partials/leon/header.html.twig') ~}}
     {%- endblock header ~%}
     {%- block main ~%}
-    <div class="leon-container flex">
+    {#- `overflow-x-clip`: the full width "On this page" bar (100vw) includes the scrollbar ~#}
+    <div class="leon-container flex overflow-x-clip">
       {%- block sidebar ~%}
       {#- the sidebar is also the mobile navigation drawer ~#}
       {{- include('partials/leon/sidebar.html.twig') ~}}
@@ -67,14 +68,17 @@
           {%- block page_header ~%}
           {{- include('partials/leon/page-header.html.twig') ~}}
           {%- endblock page_header ~%}
-          {%- block toc_mobile ~%}
-          {{- include('partials/leon/toc.html.twig', {mobile: true}) ~}}
-          {%- endblock toc_mobile ~%}
-          <article id="content" class="leon-content" tabindex="-1">
-            {%- block content ~%}
-            {{ page.content }}
-            {%- endblock content ~%}
-          </article>
+          {#- the sticky "On this page" bar stays within this wrapper: it leaves with the end of the article ~#}
+          <div>
+            {%- block toc_mobile ~%}
+            {{- include('partials/leon/toc.html.twig', {mobile: true}) ~}}
+            {%- endblock toc_mobile ~%}
+            <article id="content" class="leon-content" tabindex="-1">
+              {%- block content ~%}
+              {{ page.content }}
+              {%- endblock content ~%}
+            </article>
+          </div>
           {%- block after_content %}{% endblock ~%}
           {%- block page_footer ~%}
           {{- include('partials/leon/page-footer.html.twig') ~}}

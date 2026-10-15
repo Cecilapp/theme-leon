@@ -35,7 +35,13 @@
   --leon-cta: #0e0e0e;
   --leon-cta-text: #ffffff;
   --leon-shadow: 0 1px 2px rgb(20 20 19 / 0.04), 0 8px 24px -8px rgb(20 20 19 / 0.12);
+  --leon-header-height: 7.0625rem;
   color-scheme: light;
+}
+
+/* header without tabs */
+:root:not(:has(#header .leon-tab)) {
+  --leon-header-height: 4.0625rem;
 }
 
 :root.dark,

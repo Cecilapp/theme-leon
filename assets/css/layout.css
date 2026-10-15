@@ -465,15 +465,29 @@
       }
     }
   }
+  /* bar stuck below the header while scrolling, full width below `lg` (the column is centered) */
   .leon-toc-mobile {
+    position: sticky;
+    top: var(--leon-header-height);
+    z-index: 30;
     margin-bottom: 2rem;
-    border: 1px solid var(--leon-line);
-    border-radius: 0.75rem;
+    margin-inline: calc(50% - 50vw);
+    padding-inline: calc(50vw - 50%);
+    border-bottom: 1px solid var(--leon-line);
+    background-color: color-mix(in oklab, var(--leon-page) 90%, transparent);
+    backdrop-filter: blur(12px);
+    @variant lg {
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+    &[open] {
+      box-shadow: var(--leon-shadow);
+    }
     & > summary {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.625rem 1rem;
+      padding-block: 0.625rem;
       color: var(--leon-ink);
       font-size: 0.875rem;
       font-weight: 500;
@@ -487,7 +501,10 @@
       transform: rotate(180deg);
     }
     & .leon-toc {
-      padding: 0 1rem 0.75rem;
+      max-height: calc(100dvh - var(--leon-header-height) - 6rem);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding-bottom: 0.75rem;
     }
   }
 

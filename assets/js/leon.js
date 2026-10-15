@@ -381,6 +381,22 @@
         apply(collapsed);
       });
     }
+    // small screens: closes the sticky block after following a link, on outside click or Escape
+    var mobile = document.querySelector('.leon-toc-mobile');
+    if (mobile) {
+      mobile.addEventListener('click', function (event) {
+        if (event.target.closest('a')) mobile.open = false;
+      });
+      document.addEventListener('click', function (event) {
+        if (mobile.open && !mobile.contains(event.target)) mobile.open = false;
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && mobile.open) {
+          mobile.open = false;
+          mobile.querySelector('summary').focus();
+        }
+      });
+    }
     var links = Array.prototype.slice.call(document.querySelectorAll('.leon-toc a[href^="#"]'));
     if (!links.length || !('IntersectionObserver' in window)) return;
     var headings = [];

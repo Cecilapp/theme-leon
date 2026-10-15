@@ -1,7 +1,14 @@
 @layer base {
   html {
+    scroll-padding-top: calc(var(--leon-header-height) + 1rem);
     background-color: var(--leon-page);
     -webkit-text-size-adjust: 100%;
+    /* anchors below the sticky "On this page" block */
+    &:has(.leon-toc-mobile) {
+      @variant max-xl {
+        scroll-padding-top: calc(var(--leon-header-height) + 3.75rem);
+      }
+    }
   }
   body {
     display: flex;
