@@ -34,9 +34,9 @@
     {{- include('partials/leon/fonts.html.twig', {site}, with_context = false) ~}}
     {%- set flexsearch_css = asset('flexsearch/flexsearch.css', {ignore_missing: true}) ~%}
     {%- if (site.flexsearch.enabled ?? true) and not flexsearch_css.missing ~%}
-    {{ html(asset(['flexsearch/flexsearch.css', 'leon.css'], {filename: 'leon.css'}), {title: 'Léon'}, {preload: true}) }}
+    <style>{{ asset(['flexsearch/flexsearch.css', 'leon.css'], {filename: 'leon.css'})|inline }}</style>
     {%- else ~%}
-    {{ html(asset('leon.css'), {title: 'Léon'}, {preload: true}) }}
+    <style>{{ asset('leon.css')|inline }}</style>
     {%- endif ~%}
     {{- include('partials/leon/custom-properties.html.twig', {site}, with_context = false) ~}}
     {%- endblock head_css ~%}
