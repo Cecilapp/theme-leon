@@ -1,0 +1,18 @@
+{#- Accordions (`:::accordion`): one collapsible item per `####` heading ~#}
+<div class="note note-accordion" id="{{ note.id|e }}">
+  {%~ if note.items is empty %}
+  {{ note.content|raw }}
+  {%~ else %}
+  {%~ if note.intro %}
+  {{ note.intro|raw }}
+  {%~ endif %}
+  {%~ for item in note.items %}
+  <details class="leon-accordion"{% if item.id %} id="{{ item.id|e }}"{% endif %}>
+    <summary>{{ item.title|raw }}</summary>
+    <div class="leon-accordion-content">
+      {{ item.content|raw }}
+    </div>
+  </details>
+  {%~ endfor %}
+  {%~ endif %}
+</div>

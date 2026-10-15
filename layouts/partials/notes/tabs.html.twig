@@ -1,0 +1,30 @@
+{#- Tabs and code groups (`:::tabs` / `:::code-group`): one tab per `####` heading, or per code block in a code group.
+    Without JavaScript, panels are stacked under their title; leon.js displays the tab list and the selected panel ~#}
+{%- set languages = {
+  bash: 'Bash', sh: 'Shell', shell: 'Shell', zsh: 'Zsh', console: 'Console', powershell: 'PowerShell', ps1: 'PowerShell',
+  batch: 'CMD', bat: 'CMD', cmd: 'CMD', js: 'JavaScript', javascript: 'JavaScript', ts: 'TypeScript', typescript: 'TypeScript',
+  json: 'JSON', yaml: 'YAML', yml: 'YAML', toml: 'TOML', php: 'PHP', twig: 'Twig', html: 'HTML', xml: 'XML', css: 'CSS',
+  scss: 'SCSS', python: 'Python', py: 'Python', ruby: 'Ruby', go: 'Go', rust: 'Rust', java: 'Java', md: 'Markdown', markdown: 'Markdown',
+  sql: 'SQL', dockerfile: 'Dockerfile', diff: 'Diff', text: 'Text', plaintext: 'Text',
+} ~%}
+<div class="note note-{{ note.type|e }}" id="{{ note.id|e }}"{% if note.items is not empty %} data-leon-tabs{% endif %}>
+  {%~ if note.items is empty %}
+  {{ note.content|raw }}
+  {%~ else %}
+  {%~ if note.intro %}
+  {{ note.intro|raw }}
+  {%~ endif %}
+  {%~ set labels = note.items|map(item => item.language ? (languages[item.language|lower] ?? item.language|e) : (item.title ?? 'Code')) %}
+  <div class="leon-tablist" role="tablist">
+    {%~ for label in labels %}
+    <button type="button" class="leon-tab-button" id="{{ note.id|e }}-tab-{{ loop.index }}" role="tab" aria-controls="{{ note.id|e }}-panel-{{ loop.index }}" aria-selected="{{ loop.first ? 'true' : 'false' }}"{% if not loop.first %} tabindex="-1"{% endif %}>{{ label|raw }}</button>
+    {%~ endfor %}
+  </div>
+  {%~ for item in note.items %}
+  <div class="leon-tabpanel" id="{{ note.id|e }}-panel-{{ loop.index }}" role="tabpanel" aria-labelledby="{{ note.id|e }}-tab-{{ loop.index }}" tabindex="0">
+    <p class="leon-tabpanel-title">{{ labels[loop.index0]|raw }}</p>
+    {{ item.content|raw }}
+  </div>
+  {%~ endfor %}
+  {%~ endif %}
+</div>

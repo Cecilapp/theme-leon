@@ -25,6 +25,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {#- JavaScript available: components (e.g. tabs) are displayed enhanced from the first paint ~#}
+    <script>document.documentElement.classList.add('leon-js')</script>
     {#- dark mode, applied before the first paint (https://github.com/Cecilapp/theme-darkmodetoggle) ~#}
     {{- include('partials/darkmodetoggle-head.html.twig', {site}, with_context = false, ignore_missing = true) ~}}
     {{- include('partials/metatags.html.twig', {page, site}, with_context = false) ~}}

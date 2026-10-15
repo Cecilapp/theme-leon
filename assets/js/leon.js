@@ -16,14 +16,6 @@
     link: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
   };
 
-  var LANGUAGES = {
-    bash: 'Bash', sh: 'Shell', shell: 'Shell', zsh: 'Zsh', console: 'Console', powershell: 'PowerShell', ps1: 'PowerShell',
-    batch: 'CMD', bat: 'CMD', cmd: 'CMD', js: 'JavaScript', javascript: 'JavaScript', ts: 'TypeScript', typescript: 'TypeScript',
-    json: 'JSON', yaml: 'YAML', yml: 'YAML', toml: 'TOML', php: 'PHP', twig: 'Twig', html: 'HTML', xml: 'XML', css: 'CSS',
-    scss: 'SCSS', python: 'Python', py: 'Python', ruby: 'Ruby', go: 'Go', rust: 'Rust', java: 'Java', md: 'Markdown', markdown: 'Markdown',
-    sql: 'SQL', dockerfile: 'Dockerfile', diff: 'Diff', text: 'Text', plaintext: 'Text',
-  };
-
   function onReady(fn) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', fn);
@@ -170,78 +162,13 @@
     });
   }
 
-  /* Splits the children of a block into segments, starting at each `h4` (or `h5`) */
-  function segments(block) {
-    var result = [];
-    var intro = [];
-    var current = null;
-    Array.prototype.slice.call(block.children).forEach(function (child) {
-      if (/^H[45]$/.test(child.tagName)) {
-        current = { heading: child, nodes: [] };
-        result.push(current);
-      } else if (current) {
-        current.nodes.push(child);
-      } else {
-        intro.push(child);
-      }
+  /* Tabs and code groups: tab list and panels rendered by `partials/notes/tabs.html.twig` */
+  function initTabs(block) {
+    var buttons = Array.prototype.slice.call(block.querySelectorAll(':scope > .leon-tablist > [role="tab"]'));
+    var panels = buttons.map(function (button) {
+      return document.getElementById(button.getAttribute('aria-controls'));
     });
-    return { intro: intro, items: result };
-  }
-
-  var tabsCount = 0;
-
-  /* Tabs and code groups: `:::tabs` / `:::code-group`, one tab per `####` heading */
-  function initTabs(block, isCode) {
-    var split = segments(block);
-    var items = split.items;
-    if (!items.length && isCode) {
-      split.intro = [];
-      // code group without headings: one tab per code block, named after its language
-      items = Array.prototype.slice.call(block.querySelectorAll(':scope > pre')).map(function (pre) {
-        var code = pre.querySelector('code');
-        var match = code && /language-([\w-]+)/.exec(code.className);
-        var label = match ? (LANGUAGES[match[1].toLowerCase()] || match[1]) : 'Code';
-        return { label: label, nodes: [pre] };
-      });
-    }
-    if (!items.length) return;
-    var id = 'leon-tabs-' + ++tabsCount;
-    var tablist = document.createElement('div');
-    tablist.className = 'leon-tablist';
-    tablist.setAttribute('role', 'tablist');
-    var buttons = [];
-    var panels = [];
-    items.forEach(function (item, index) {
-      var label = item.label || item.heading.textContent.trim();
-      var button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'leon-tab-button';
-      button.id = id + '-tab-' + index;
-      button.setAttribute('role', 'tab');
-      button.setAttribute('aria-controls', id + '-panel-' + index);
-      button.textContent = label;
-      tablist.appendChild(button);
-      buttons.push(button);
-      var panel = document.createElement('div');
-      panel.className = 'leon-tabpanel';
-      panel.id = id + '-panel-' + index;
-      panel.setAttribute('role', 'tabpanel');
-      panel.setAttribute('aria-labelledby', button.id);
-      panel.tabIndex = 0;
-      item.nodes.forEach(function (node) {
-        panel.appendChild(node);
-      });
-      if (item.heading) item.heading.remove();
-      panels.push(panel);
-    });
-    block.appendChild(tablist);
-    panels.forEach(function (panel) {
-      block.appendChild(panel);
-    });
-    // intro content stays before the tabs
-    split.intro.forEach(function (node) {
-      block.insertBefore(node, tablist);
-    });
+    if (!buttons.length) return;
 
     function select(index, focus) {
       buttons.forEach(function (button, i) {
@@ -278,75 +205,12 @@
       return button.textContent === preferred;
     });
     select(initial > -1 ? initial : 0);
-  }
-
-  /* Steps: `:::steps`, one step per `####` heading */
-  function initSteps(block) {
-    var split = segments(block);
-    split.items.forEach(function (item) {
-      var step = document.createElement('div');
-      step.className = 'leon-step';
-      block.insertBefore(step, item.heading);
-      step.appendChild(item.heading);
-      item.nodes.forEach(function (node) {
-        step.appendChild(node);
-      });
-    });
-  }
-
-  /* Accordions: `:::accordion`, one collapsible item per `####` heading */
-  function initAccordion(block) {
-    var split = segments(block);
-    split.items.forEach(function (item) {
-      var details = document.createElement('details');
-      details.className = 'leon-accordion';
-      if (item.heading.id) {
-        details.id = item.heading.id;
-      }
-      var summary = document.createElement('summary');
-      summary.innerHTML = item.heading.innerHTML;
-      details.appendChild(summary);
-      var body = document.createElement('div');
-      body.className = 'leon-accordion-content';
-      item.nodes.forEach(function (node) {
-        body.appendChild(node);
-      });
-      details.appendChild(body);
-      block.insertBefore(details, item.heading);
-      item.heading.remove();
-    });
-  }
-
-  /* Cards: `:::cards`, a list of links followed by a description */
-  function initCards(block) {
-    block.querySelectorAll(':scope > ul > li').forEach(function (li) {
-      var link = li.firstElementChild;
-      if (!link || link.tagName !== 'A') return;
-      var description = document.createElement('span');
-      description.className = 'leon-card-description';
-      while (link.nextSibling) {
-        description.appendChild(link.nextSibling);
-      }
-      // removes the separator between the link and its description (`:` or `-`)
-      var first = description.firstChild;
-      if (first && first.nodeType === Node.TEXT_NODE) {
-        first.textContent = first.textContent.replace(/^\s*[:\-–—]\s*/, '');
-      }
-      if (description.textContent.trim()) li.appendChild(description);
-    });
+    block.classList.add('is-ready');
   }
 
   function initBlocks() {
     if (!content) return;
-    content.querySelectorAll('.note-tabs').forEach(function (block) {
-      initTabs(block, false);
-    });
-    content.querySelectorAll('.note-code-group').forEach(function (block) {
-      initTabs(block, true);
-    });
-    content.querySelectorAll('.note-steps').forEach(initSteps);
-    content.querySelectorAll('.note-accordion').forEach(initAccordion);
-    content.querySelectorAll('.note-cards').forEach(initCards);
+    content.querySelectorAll('[data-leon-tabs]').forEach(initTabs);
     // opens the accordion targeted by the URL hash
     function openTarget() {
       if (!location.hash) return;

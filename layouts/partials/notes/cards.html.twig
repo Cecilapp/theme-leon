@@ -1,0 +1,18 @@
+{#- Cards (`:::cards`): a list of links, each one followed by a description ~#}
+<div class="note note-cards" id="{{ note.id|e }}">
+  {%~ if note.items is empty %}
+  {{ note.content|raw }}
+  {%~ else %}
+  {%~ if note.intro %}
+  {{ note.intro|raw }}
+  {%~ endif %}
+  <ul>
+    {%~ for item in note.items %}
+    <li>
+      {%- if item.link %}{{ item.link|raw }}{% elseif item.title %}<span class="leon-card-title">{{ item.title|raw }}</span>{% endif -%}
+      {%- if item.content %}<div class="leon-card-description">{{ item.content|raw }}</div>{% endif -%}
+    </li>
+    {%~ endfor %}
+  </ul>
+  {%~ endif %}
+</div>
