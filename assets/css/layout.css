@@ -274,10 +274,10 @@
     }
   }
 
-  /* "Copy page" button and menu */
+  /* "Copy page" button and menu (hidden on mobile) */
   .leon-copypage {
     position: relative;
-    display: inline-flex;
+    display: none;
     flex: none;
     align-self: flex-start;
     border: 1px solid var(--leon-line-strong);
@@ -287,7 +287,12 @@
     font-size: 0.875rem;
     font-weight: 500;
     @variant sm {
+      display: inline-flex;
       margin-top: 0.125rem;
+    }
+    /* open menu above the sticky "On this page" bar */
+    &:has(.leon-menu:not([hidden])) {
+      z-index: 31;
     }
   }
   .leon-copypage-main,
