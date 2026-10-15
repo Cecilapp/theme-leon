@@ -63,8 +63,8 @@
             {%- endif ~%}
             <p>{% trans with {'%cecil%': '<a href="' ~ cecil.url ~ '" class="underline decoration-line-strong underline-offset-4 hover:text-ink">Cecil</a>'} %}Powered by %cecil%{% endtrans %}</p>
           </div>
-          <div class="leon-select-bordered">
-            {{- include('partials/leon/language.html.twig', {id: 'footer'}) ~}}
+          <div class="leon-language-bordered">
+            {{- include('partials/leon/language.html.twig', {up: true}) ~}}
           </div>
         </div>
       </div>

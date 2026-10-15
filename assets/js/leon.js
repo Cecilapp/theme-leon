@@ -122,12 +122,30 @@
 
   /* Language selector, and suggestion of the translation matching the browser language (until a language is chosen) */
   function initLanguage() {
-    document.querySelectorAll('[data-leon-language]').forEach(function (select) {
-      select.addEventListener('change', function () {
-        storage('leon-language', select.options[select.selectedIndex].lang || '1');
-        window.location.href = select.value;
+    var menus = document.querySelectorAll('[data-leon-language]');
+    menus.forEach(function (menu) {
+      menu.querySelectorAll('a[hreflang]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          storage('leon-language', link.hreflang || '1');
+        });
       });
     });
+    // the `<details>` menus work without JS: close them on an outside click or Escape
+    if (menus.length) {
+      document.addEventListener('click', function (event) {
+        menus.forEach(function (menu) {
+          if (menu.open && !menu.contains(event.target)) menu.open = false;
+        });
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key !== 'Escape') return;
+        menus.forEach(function (menu) {
+          if (!menu.open) return;
+          menu.open = false;
+          menu.querySelector('summary').focus();
+        });
+      });
+    }
 
     var banners = document.querySelectorAll('[data-leon-language-banner]');
     if (!banners.length || storage('leon-language')) return;

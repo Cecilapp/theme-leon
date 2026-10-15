@@ -48,25 +48,49 @@
       opacity: 0.85;
     }
   }
-  .leon-select {
+  /* Language selector: `<details>` menu of links */
+  .leon-language {
     position: relative;
     display: inline-flex;
-    align-items: center;
-    & select {
-      appearance: none;
-      padding: 0.25rem 1.25rem 0.25rem 0.25rem;
-      border: 0;
+    & > summary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem;
       border-radius: 0.5rem;
-      background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238d8c85' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right center / 0.875rem;
       color: var(--leon-ink);
-      font: inherit;
       font-size: 0.9375rem;
       font-weight: 500;
+      list-style: none;
       cursor: pointer;
+      &::-webkit-details-marker {
+        display: none;
+      }
     }
-    & option {
-      background-color: var(--leon-surface);
+    &[open] .leon-language-chevron {
+      transform: rotate(180deg);
+    }
+  }
+  .leon-language-chevron {
+    color: var(--leon-faint);
+    transition: transform 0.15s;
+  }
+  .leon-language .leon-menu {
+    width: auto;
+    min-width: 10rem;
+    margin: 0;
+    list-style: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    & a {
       color: var(--leon-ink);
+    }
+    & a[aria-current] {
+      color: var(--leon-active-text);
+    }
+    .leon-language-up & {
+      top: auto;
+      bottom: calc(100% + 0.5rem);
     }
   }
 
@@ -563,11 +587,11 @@
       color: var(--leon-muted);
     }
   }
-  .leon-select-bordered .leon-select select {
-    padding: 0.5rem 2rem 0.5rem 0.875rem;
+  .leon-language-bordered .leon-language > summary {
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem 0.5rem 0.875rem;
     border: 1px solid var(--leon-line-strong);
     border-radius: 0.625rem;
-    background-position: right 0.75rem center;
     color: var(--leon-muted);
     font-size: 0.8125rem;
     &:hover {

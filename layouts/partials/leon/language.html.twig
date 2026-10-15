@@ -1,15 +1,19 @@
-{#- Language selector (if the page is translated). Optional variable: `id` ~#}
+{#- Language selector (if the page is translated): a `<details>` menu of links, usable without JavaScript. Optional variable: `up` (menu opening upwards) ~#}
 {%- if page.translations|default([])|length >= 1 ~%}
-{%- set select_id = 'leon-language' ~ (id is defined ? '-' ~ id : '') ~%}
-          <div class="leon-select">
-            <label for="{{ select_id }}" class="sr-only">{% trans %}Language{% endtrans %}</label>
-            <select id="{{ select_id }}" data-leon-language>
-              <option value="{{ url(page) }}" lang="{{ page.language }}" selected>{{ page.language|language_name(site.language.locale(page.language))|capitalize }}</option>
+{%- import 'macros/leon.twig' as leon_macros ~%}
+          <details class="leon-language{% if up|default(false) %} leon-language-up{% endif %}" data-leon-language>
+            <summary>
+              <span class="sr-only">{% trans %}Language{% endtrans %}</span>
+              <span lang="{{ page.language }}">{{ page.language|language_name(site.language.locale(page.language))|capitalize }}</span>
+              {{- leon_macros.icon('chevron-down', 'leon-language-chevron size-3.5') -}}
+            </summary>
+            <ul class="leon-menu">
+              <li><a href="{{ url(page) }}" class="leon-menu-item" hreflang="{{ page.language }}" lang="{{ page.language }}" aria-current="page">{{ page.language|language_name(site.language.locale(page.language))|capitalize }}{{ leon_macros.icon('check', 'ml-auto size-4') }}</a></li>
               {%- for translation in page.translations ~%}
               {%- if translation.language is defined ~%}
-              <option value="{{ url(translation) }}" lang="{{ translation.language }}">{{ translation.language|language_name(site.language.locale(translation.language))|capitalize }}</option>
+              <li><a href="{{ url(translation) }}" class="leon-menu-item" hreflang="{{ translation.language }}" lang="{{ translation.language }}">{{ translation.language|language_name(site.language.locale(translation.language))|capitalize }}</a></li>
               {%- endif ~%}
               {%- endfor ~%}
-            </select>
-          </div>
+            </ul>
+          </details>
 {%- endif ~%}

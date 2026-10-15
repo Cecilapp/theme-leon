@@ -19,7 +19,7 @@
             <a href="{{ url(entry.url) }}" class="leon-nav-link">{{ entry.name }}</a>
             {%- endfor ~%}
             <div class="pt-2 sm:hidden">
-              {{- include('partials/leon/language.html.twig', {id: 'drawer'}) ~}}
+              {{- include('partials/leon/language.html.twig') ~}}
             </div>
           </div>
           {%- if has_sidebar ~%}
