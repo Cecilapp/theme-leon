@@ -15,7 +15,8 @@ Variables: `section` (the section to list), `level` (0 for the tab root: its sub
 {%- if children|length > 0 ~%}
 <ul class="{{ level == 0 ? 'leon-nav' : (level == 1 ? 'leon-nav-group-items' : 'leon-nav-nested') }}">
   {%- for child in children ~%}
-  {%- set current = url(child) == url(page) ~%}
+  {#- a paginated section (`docs/guides/page/2`) highlights its first page ~#}
+  {%- set current = url(child) == url(page) or child.id == (page.paginator.links.first ?? null) ~%}
   {%- if child.type == 'section' and level == 0 ~%}
   {#- group: a title, then its pages (and the section index page, if it has content) ~#}
   <li class="leon-nav-group">

@@ -21,7 +21,7 @@ The maintainer speaks French: answer in French, and ask questions as decisions c
 ## Cecil gotchas learned
 
 - Theme `config.yml` is imported with `IMPORT_PRESERVE` **after** Cecil defaults: it can't change existing keys (`output.pagetypeformats`, `pages.sortby`, `pages.pagination`…). The site must set them (documented in README).
-- With pagination enabled, `/docs/page/2/` is also a `section` page: tabs filter out `p.paginated`.
+- With pagination enabled, `/docs/page/2/` is also a top level `section` page (a clone with id `docs/page/2`, `paginated: true`): tabs filter out `p.paginated`, and the root (active tab, sidebar) of a paginated page is its first page, found with `page.paginator.links.first`. The theme renders no pager (cards list every child), hence the README advice to disable pagination.
 - Cecil adds top level sections to `menus.main`: the header filters out entries already shown as tabs (`menu_links` in `page.html.twig`). Those entries have the page id **without language** (`docs`, while the French page id is `fr/docs`): compare with `idWithoutLang`.
 - `site.pages` is already scoped to the current language.
 - The Twig `url()` function prefixes a string path with the current language (`url('fonts/x.woff2')` → `/fr/fonts/x.woff2` on French pages): link static files with `url(asset('…'))`.

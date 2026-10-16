@@ -4,6 +4,10 @@
 {%- set root = null ~%}
 {%- if page.type == 'section' and (page.toplevel ?? false) ~%}
   {%- set root = page ~%}
+  {#- next pages of a paginated section (`docs/page/2`): its first page ~#}
+  {%- if page.paginated ?? false ~%}
+    {%- set root = site.pages|filter(p => p.id == page.paginator.links.first)|first|default(page) ~%}
+  {%- endif ~%}
 {%- elseif page.ancestors|default([])|length > 0 ~%}
   {%- set root = page.ancestors|last ~%}
 {%- endif ~%}
