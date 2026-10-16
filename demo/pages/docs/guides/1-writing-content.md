@@ -124,6 +124,51 @@ Yes, and a native `<details>` element is styled as an accordion too.
 - [Configuration](../../../reference/configuration/): every option of the theme
 :::
 
+## Nesting
+
+A block can contain other blocks: its fence must then be longer than theirs (`::::steps` … `::::`).
+
+::::steps
+#### Install
+:::code-group
+```bash
+brew install cecil
+```
+```powershell
+scoop install cecil
+```
+:::
+
+#### Configure
+:::tip
+Add `leon` to the `theme` list of your site.
+:::
+
+#### Build
+Run `cecil build`.
+::::
+
+::::tabs
+#### Composer
+```bash
+composer require cecil/theme-leon
+```
+
+#### Archive
+:::warning
+Also install the required component themes.
+:::
+::::
+
+````markdown
+::::steps
+#### Configure
+:::tip
+Add `leon` to the `theme` list of your site.
+:::
+::::
+````
+
 ## Code
 
 Inline `code`, keyboard keys like <kbd>Ctrl</kbd> + <kbd>K</kbd>, and blocks with syntax highlighting:

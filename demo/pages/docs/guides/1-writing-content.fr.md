@@ -124,6 +124,51 @@ Oui, et un élément natif `<details>` est lui aussi mis en forme comme un accor
 - [Configuration](../../../reference/configuration/) : toutes les options du thème
 :::
 
+## Imbrication
+
+Un bloc peut en contenir d'autres : sa clôture doit alors être plus longue que la leur (`::::steps` … `::::`).
+
+::::steps
+#### Installer
+:::code-group
+```bash
+brew install cecil
+```
+```powershell
+scoop install cecil
+```
+:::
+
+#### Configurer
+:::tip
+Ajoutez `leon` à la liste `theme` de votre site.
+:::
+
+#### Générer
+Lancez `cecil build`.
+::::
+
+::::tabs
+#### Composer
+```bash
+composer require cecil/theme-leon
+```
+
+#### Archive
+:::warning
+Installez aussi les thèmes de composants requis.
+:::
+::::
+
+````markdown
+::::steps
+#### Configurer
+:::tip
+Ajoutez `leon` à la liste `theme` de votre site.
+:::
+::::
+````
+
 ## Code
 
 Du `code` en ligne, des touches de clavier comme <kbd>Ctrl</kbd> + <kbd>K</kbd>, et des blocs avec coloration syntaxique :

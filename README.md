@@ -141,7 +141,7 @@ A static site generator.
 :::
 ````
 
-Tabs with the same label are synchronized across the page, and the choice of the reader is remembered. A code group without headings names its tabs after the language of each code block. Blocks can't be nested: a line made of `:::` closes the block.
+Tabs with the same label are synchronized across the page, and the choice of the reader is remembered. A code group without headings names its tabs after the language of each code block. A block is closed by a line made of `:::`. Since Cecil 9.13.0, a block can contain other blocks: its fence must then be longer than theirs (e.g. `::::steps` … `::::` around a `:::tip` … `:::`).
 
 Components are rendered in HTML when the site is built, by the `partials/notes/<type>.html.twig` templates (overridable in the site `layouts/`): JavaScript only makes tabs interactive, and without it their panels are stacked under their title.
 
