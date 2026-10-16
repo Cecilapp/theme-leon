@@ -1,7 +1,4 @@
-/*!
- * Léon theme for Cecil
- * https://github.com/Cecilapp/theme-leon
- */
+/*! Léon theme for Cecil | https://github.com/Cecilapp/theme-leon */
 (function () {
   'use strict';
 
