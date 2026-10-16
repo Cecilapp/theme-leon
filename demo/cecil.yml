@@ -6,6 +6,12 @@ baseurl: http://localhost:8000/
 author:
   name: Cecil
   url: https://cecil.app
+# footer icons (and `rel="me"` links of the metatags)
+social:
+  github:
+    url: https://github.com/Cecilapp/theme-leon
+  opencollective:
+    url: https://opencollective.com/cecil
 # `themes/leon` links to the root of this repository (see `link.php`)
 theme:
   - leon
@@ -46,9 +52,6 @@ languages:
         github:
           repo: https://github.com/Cecilapp/theme-leon
           path: demo/pages
-        social:
-          github: https://github.com/Cecilapp/theme-leon
-          opencollective: https://opencollective.com/cecil
         footer: 'Léon est un thème libre pour [Cecil](https://cecil.app), publié sous licence MIT.'
         language:
           suggest: true
@@ -85,9 +88,6 @@ leon:
   github:
     repo: https://github.com/Cecilapp/theme-leon
     path: demo/pages
-  social:
-    github: https://github.com/Cecilapp/theme-leon
-    opencollective: https://opencollective.com/cecil
   footer: 'Léon is a free theme for [Cecil](https://cecil.app), released under the MIT license.'
   language:
     suggest: true

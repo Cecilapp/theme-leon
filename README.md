@@ -195,7 +195,6 @@ leon:
     branch: main
     path: pages
   lastupdated: false # displays the page date as "Last updated"
-  social: {}         # social links in the footer, e.g. {github: https://github.com/<user>, bluesky: https://bsky.app/profile/<user>}
   footer: ''         # footer text (supports Markdown, `%author%` and `%year%`)
   mermaid:
     version: '11.17.2'
@@ -222,6 +221,17 @@ If the logo already contains the name of the site, hide the title with `leon.hea
 #### Menus and footer
 
 Links of the `main` menu are displayed in the header (sections displayed as tabs excepted). Under the logo, the footer displays the `baseline` of the site and the `leon.footer` text, then lists the pages of each tab (its sub-sections and pages), then the links of the `footer` menu under "Resources", and the `social` links as icons: `github`, `gitlab`, `bluesky`, `mastodon`, `x`, `youtube`, `discord`, `opencollective` and `rss` (a globe for any other name).
+
+Social links are set by the [`social`](https://cecil.app/documentation/configuration/site/#metatags-options) key at the root of the site configuration (not under `leon`), also used by the metatags: each network with a `url` is displayed.
+
+```yaml
+social:
+  github:
+    url: https://github.com/<user>
+  mastodon:
+    url: https://mastodon.social/@<user>
+    creator: '@<user>@mastodon.social'
+```
 
 ### Customization
 
