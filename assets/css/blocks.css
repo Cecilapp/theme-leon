@@ -12,7 +12,7 @@
     padding: 0.875rem 1.25rem 0.875rem 3rem;
     border: 1px solid color-mix(in oklab, var(--note-color) 24%, transparent);
     border-radius: 1rem;
-    background-color: color-mix(in oklab, var(--note-color) 5%, var(--leon-page));
+    background-color: color-mix(in oklab, var(--note-color) var(--note-tint, 5%), var(--leon-page));
     font-size: 0.9375rem;
     line-height: 1.6;
     &::before {
@@ -69,8 +69,9 @@
     --note-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'/%3E%3Cpath d='M12 7v4m0 4h.01'/%3E%3C/svg%3E");
   }
   :is(.dark, [data-theme="dark"]) .leon-content {
+    /* a stronger tint, not a background: components keep theirs */
     & .note {
-      background-color: color-mix(in oklab, var(--note-color) 9%, var(--leon-page));
+      --note-tint: 9%;
     }
     & .note-note {
       --note-color: #38bdf8;
