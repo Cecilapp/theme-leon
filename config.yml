@@ -40,5 +40,3 @@ leon:
     path: pages
   lastupdated: false # displays the page date as "Last updated" (the `updated` front matter variable is always displayed)
   footer: ''         # footer text (supports Markdown, `%author%` and `%year%`)
-  mermaid:
-    version: '11.17.2'

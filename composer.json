@@ -13,6 +13,7 @@
     "aligny/tailwind-builder": "^1.2"
   },
   "suggest": {
+    "cecil/theme-pele": "Mermaid diagrams rendered to SVG with Pele (requires Cecil 9.18+)",
     "cecil/theme-pwa": "Progressive Web App: web manifest, service worker and offline page"
   },
   "scripts": {

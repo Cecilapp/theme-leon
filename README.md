@@ -13,7 +13,7 @@ _Léon_ is a documentation theme for [Cecil](https://cecil.app), with a warm pal
 - **Search** with [FlexSearch](https://github.com/Cecilapp/theme-flexsearch) (<kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>K</kbd>)
 - **Light and dark** color schemes with [Dark mode toggle](https://github.com/Cecilapp/theme-darkmodetoggle)
 - Content components written in **plain Markdown**: callouts, tabs, code groups, steps, accordions and cards
-- Code blocks with syntax highlighting and copy button, Mermaid diagrams
+- Code blocks with syntax highlighting and copy button, Mermaid diagrams with [Pele](https://github.com/Cecilapp/theme-pele) (optional)
 - **"Copy page"** menu: copy the page as Markdown, view it as Markdown, open it in Claude or ChatGPT
 - "Edit this page" link, "Last updated" date, previous/next pages
 - Footer with a column of links per tab, the `footer` menu, social links and the language selector
@@ -145,6 +145,24 @@ Tabs with the same label are synchronized across the page, and the choice of the
 
 Components are rendered in HTML when the site is built, by the `partials/notes/<type>.html.twig` templates (overridable in the site `layouts/`): JavaScript only makes tabs interactive, and without it their panels are stacked under their title.
 
+### Diagrams
+
+[Mermaid](https://mermaid.js.org) diagrams (` ```mermaid ` code blocks) are rendered to SVG by the [_Pele_](https://github.com/Cecilapp/theme-pele) component theme (requires Cecil 9.18 or later), with the colors and fonts of Léon, on graph paper:
+
+```bash
+composer require cecil/theme-pele
+```
+
+```yaml
+theme:
+  - leon
+  - flexsearch
+  - darkmodetoggle
+  - pele
+```
+
+Without _Pele_, the Mermaid source is displayed as a code block. Its options are set under `pele:` (see [its documentation](https://github.com/Cecilapp/theme-pele#configuration)).
+
 ### Front matter
 
 | Variable        | Description                                                         |
@@ -196,8 +214,6 @@ leon:
     path: pages
   lastupdated: false # displays the page date as "Last updated"
   footer: ''         # footer text (supports Markdown, `%author%` and `%year%`)
-  mermaid:
-    version: '11.17.2'
 ```
 
 #### Logo

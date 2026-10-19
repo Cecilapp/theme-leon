@@ -360,33 +360,45 @@
       }
     }
   }
+}
 
-  /* Mermaid diagrams, on graph paper */
-  .leon-content pre:has(> code.language-mermaid) {
-    display: flex;
-    justify-content: center;
-    padding: 1.25rem;
-    border-color: color-mix(in oklab, #ebdbbc 60%, transparent);
-    background-color: #fdfdfb;
-    background-image:
-      linear-gradient(rgb(235 219 188 / 0.25) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(235 219 188 / 0.25) 1px, transparent 1px),
-      linear-gradient(rgb(235 219 188 / 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(235 219 188 / 0.1) 1px, transparent 1px);
-    background-position: -1px -1px;
-    background-size: 20px 20px, 20px 20px, 4px 4px, 4px 4px;
-    & code {
-      width: auto;
-      min-width: 0;
-    }
-  }
-  :is(.dark, [data-theme="dark"]) .leon-content pre:has(> code.language-mermaid) {
-    border-color: rgb(102 102 99 / 0.5);
-    background-color: #1a1918;
-    background-image:
-      linear-gradient(rgb(212 162 127 / 0.15) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(212 162 127 / 0.15) 1px, transparent 1px),
-      linear-gradient(rgb(212 162 127 / 0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(212 162 127 / 0.08) 1px, transparent 1px);
-  }
+/*
+ * Mermaid diagrams rendered by Pele (https://github.com/Cecilapp/theme-pele), on graph paper.
+ * Unlayered: the Pele stylesheet is not in a layer, a layered rule would always lose.
+ * The `--pele-*` colors are set on the diagram, so they take precedence over the Pele dark defaults set on `:root`.
+ */
+.leon-content .pele-diagram {
+  --pele-bg: #fdfdfb;
+  --pele-fg: var(--leon-ink);
+  --pele-muted: var(--leon-muted);
+  --pele-line: var(--leon-body);
+  --pele-surface: var(--leon-surface);
+  --pele-surface-alt: var(--leon-subtle);
+  --pele-border: var(--leon-line-strong);
+  --pele-accent: var(--leon-accent);
+  --pele-font: var(--leon-font-sans);
+  --pele-font-mono: var(--leon-font-mono);
+  margin-block: 1.5rem;
+  padding: 1.25rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, #ebdbbc 60%, transparent);
+  border-radius: 1rem;
+  background-color: var(--pele-bg);
+  background-image:
+    linear-gradient(rgb(235 219 188 / 0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(235 219 188 / 0.25) 1px, transparent 1px),
+    linear-gradient(rgb(235 219 188 / 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(235 219 188 / 0.1) 1px, transparent 1px);
+  background-position: -1px -1px;
+  background-size: 20px 20px, 20px 20px, 4px 4px, 4px 4px;
+}
+:is(.dark, [data-theme="dark"]) .leon-content .pele-diagram {
+  --pele-bg: #1a1918;
+  --pele-accent: var(--leon-accent-dark);
+  border-color: rgb(102 102 99 / 0.5);
+  background-image:
+    linear-gradient(rgb(212 162 127 / 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(212 162 127 / 0.15) 1px, transparent 1px),
+    linear-gradient(rgb(212 162 127 / 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(212 162 127 / 0.08) 1px, transparent 1px);
 }

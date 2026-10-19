@@ -17,6 +17,7 @@ theme:
   - leon
   - flexsearch
   - darkmodetoggle
+  - pele
 language: en
 languages:
   - code: en

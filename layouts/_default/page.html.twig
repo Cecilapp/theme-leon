@@ -46,6 +46,8 @@
     {%- endblock head_css ~%}
     {#- Progressive Web App (https://github.com/Cecilapp/theme-pwa) ~#}
     {{- include('partials/pwa.html.twig', {site}, with_context = false, ignore_missing = true) ~}}
+    {#- Mermaid diagrams (https://github.com/Cecilapp/theme-pele) ~#}
+    {{- include('partials/pele.html.twig', {page, site}, with_context = false, ignore_missing = true) ~}}
     {%- block head %}{% endblock ~%}
   </head>
   <body class="{% block body_class %}{% if has_sidebar %}has-sidebar{% endif %}{% endblock %} bg-page font-sans text-body antialiased">

@@ -1,6 +1,6 @@
 <?php
 // Links the repository as `demo/themes/leon`, so the demo site uses the theme under development,
-// and installs the required component themes (FlexSearch and Dark mode toggle) in `demo/themes/`:
+// and installs the component themes (FlexSearch, Dark mode toggle and Pele) in `demo/themes/`:
 // linked from a sibling clone (e.g. `../theme-flexsearch`) if it exists, cloned from GitHub otherwise.
 $themes = __DIR__ . DIRECTORY_SEPARATOR . 'themes';
 @mkdir($themes, 0777, true);
@@ -26,7 +26,7 @@ if (file_exists($link)) {
     echo $code === 0 ? "Linked $link -> $repository\n" : "Unable to create $link\n";
 }
 
-foreach (['flexsearch', 'darkmodetoggle'] as $name) {
+foreach (['flexsearch', 'darkmodetoggle', 'pele'] as $name) {
     $path = $themes . DIRECTORY_SEPARATOR . $name;
     if (file_exists($path)) {
         echo "Theme already installed: $path\n";

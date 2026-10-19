@@ -241,7 +241,8 @@
   function initCodeBlocks() {
     if (!content) return;
     content.querySelectorAll('pre > code').forEach(function (code) {
-      if (/language-mermaid/.test(code.className)) return;
+      // Mermaid source, replaced by its diagram (https://github.com/Cecilapp/theme-pele)
+      if (window.cecilPele && code.classList.contains('language-mermaid')) return;
       var pre = code.parentElement;
       var wrapper = document.createElement('div');
       wrapper.className = 'leon-code';
@@ -435,39 +436,6 @@
     });
   }
 
-  /* Mermaid diagrams, re-rendered when the color scheme changes */
-  function initMermaid() {
-    var script = document.getElementById('leon-mermaid');
-    if (!script) return;
-    function run() {
-      if (!window.mermaid) return;
-      var diagrams = document.querySelectorAll('code.language-mermaid');
-      diagrams.forEach(function (element) {
-        if (!element.dataset.source) element.dataset.source = element.textContent;
-      });
-      var current = null;
-      function render() {
-        var dark = root.classList.contains('dark') || root.dataset.theme === 'dark';
-        var theme = dark ? 'dark' : 'neutral';
-        if (theme === current) return;
-        current = theme;
-        diagrams.forEach(function (element) {
-          element.removeAttribute('data-processed');
-          element.textContent = element.dataset.source;
-        });
-        window.mermaid.initialize({ startOnLoad: false, theme: theme, fontFamily: getComputedStyle(root).getPropertyValue('--leon-font-sans') });
-        window.mermaid.run({ nodes: diagrams });
-      }
-      render();
-      document.addEventListener('colorschemechange', render);
-    }
-    if (window.mermaid) {
-      run();
-    } else {
-      script.addEventListener('load', run);
-    }
-  }
-
   onReady(function () {
     initDrawer();
     initLanguage();
@@ -476,6 +444,5 @@
     initCodeBlocks();
     initCopyPage();
     initToc();
-    initMermaid();
   });
 })();
