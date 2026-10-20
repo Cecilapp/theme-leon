@@ -58,7 +58,8 @@
       {%- if 'markdown' in site.output.pagetypeformats.page ?? [] %} {% trans %}Append .md to any page URL to get its Markdown version.{% endtrans %}{% endif ~%}
     </div>
     {%- endif ~%}
-    <a href="#content" class="skip-link">{% trans %}Skip to content{% endtrans %}</a>
+    {#- `skip_link_target`: set by the child templates without an article (home, 404) ~#}
+    <a href="#{{ skip_link_target ?? 'content' }}" class="skip-link">{% trans %}Skip to content{% endtrans %}</a>
     {%- block header ~%}
     {{- include('partials/leon/header.html.twig') ~}}
     {%- endblock header ~%}

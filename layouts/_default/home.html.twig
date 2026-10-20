@@ -1,4 +1,5 @@
 {% extends ['page.html.twig', '_default/page.html.twig'] %}
+{% set skip_link_target = page.content|striptags|trim is empty ? 'main' : 'content' %}
 
     {%- block main ~%}
     {%- import 'macros/leon.twig' as leon_macros ~%}
