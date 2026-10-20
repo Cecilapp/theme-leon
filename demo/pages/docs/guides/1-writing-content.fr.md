@@ -63,6 +63,31 @@ curl -LO https://cecil.app/cecil.phar
 ```
 :::
 
+````markdown
+:::tabs
+#### macOS
+Installez avec Homebrew :
+
+```bash
+brew install cecil
+```
+
+#### Windows
+Installez avec Scoop :
+
+```powershell
+scoop install cecil
+```
+
+#### Linux
+Téléchargez le Phar :
+
+```bash
+curl -LO https://cecil.app/cecil.phar
+```
+:::
+````
+
 ## Groupes de code
 
 Un groupe de code présente des blocs de code alternatifs dans un même cadre :
@@ -82,6 +107,23 @@ curl -LO https://cecil.app/cecil.phar
 ```
 :::
 
+````markdown
+:::code-group
+#### macOS
+```bash
+brew install cecil
+```
+#### Windows
+```powershell
+scoop install cecil
+```
+#### Linux
+```bash
+curl -LO https://cecil.app/cecil.phar
+```
+:::
+````
+
 Sans titres, les onglets prennent le nom du langage de chaque bloc :
 
 :::code-group
@@ -93,6 +135,18 @@ theme:
 {"theme": ["leon"]}
 ```
 :::
+
+````markdown
+:::code-group
+```yaml
+theme:
+  - leon
+```
+```json
+{"theme": ["leon"]}
+```
+:::
+````
 
 ## Étapes
 
@@ -107,6 +161,19 @@ Lancez `php cecil.phar build`.
 Déployez le dossier `_site` où vous voulez.
 :::
 
+````markdown
+:::steps
+#### Écrire
+Rédigez vos pages en Markdown.
+
+#### Générer
+Lancez `php cecil.phar build`.
+
+#### Publier
+Déployez le dossier `_site` où vous voulez.
+:::
+````
+
 ## Accordéons
 
 :::accordion
@@ -117,12 +184,29 @@ Un générateur de site statique, écrit en PHP, qui transforme des fichiers Mar
 Oui, et un élément natif `<details>` est lui aussi mis en forme comme un accordéon.
 :::
 
+````markdown
+:::accordion
+#### Qu'est-ce que Cecil ?
+Un générateur de site statique, écrit en PHP, qui transforme des fichiers Markdown en site web.
+
+#### Puis-je utiliser du HTML ?
+Oui, et un élément natif `<details>` est lui aussi mis en forme comme un accordéon.
+:::
+````
+
 ## Cartes
 
 :::cards
 - [Démarrage rapide](../../getting-started/quickstart/) : créer un site de zéro
 - [Configuration](../../../reference/configuration/) : toutes les options du thème
 :::
+
+````markdown
+:::cards
+- [Démarrage rapide](../../getting-started/quickstart/) : créer un site de zéro
+- [Configuration](../../../reference/configuration/) : toutes les options du thème
+:::
+````
 
 ## Imbrication
 
@@ -148,6 +232,28 @@ Ajoutez `leon` à la liste `theme` de votre site.
 Lancez `cecil build`.
 ::::
 
+````markdown
+::::steps
+#### Installer
+:::code-group
+```bash
+brew install cecil
+```
+```powershell
+scoop install cecil
+```
+:::
+
+#### Configurer
+:::tip
+Ajoutez `leon` à la liste `theme` de votre site.
+:::
+
+#### Générer
+Lancez `cecil build`.
+::::
+````
+
 ::::tabs
 #### Composer
 ```bash
@@ -161,10 +267,15 @@ Installez aussi les thèmes de composants requis.
 ::::
 
 ````markdown
-::::steps
-#### Configurer
-:::tip
-Ajoutez `leon` à la liste `theme` de votre site.
+::::tabs
+#### Composer
+```bash
+composer require cecil/theme-leon
+```
+
+#### Archive
+:::warning
+Installez aussi les thèmes de composants requis.
 :::
 ::::
 ````

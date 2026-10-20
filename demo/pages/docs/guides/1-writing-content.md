@@ -63,6 +63,31 @@ curl -LO https://cecil.app/cecil.phar
 ```
 :::
 
+````markdown
+:::tabs
+#### macOS
+Install with Homebrew:
+
+```bash
+brew install cecil
+```
+
+#### Windows
+Install with Scoop:
+
+```powershell
+scoop install cecil
+```
+
+#### Linux
+Download the Phar:
+
+```bash
+curl -LO https://cecil.app/cecil.phar
+```
+:::
+````
+
 ## Code groups
 
 A code group shows alternative code blocks in a single frame:
@@ -82,6 +107,23 @@ curl -LO https://cecil.app/cecil.phar
 ```
 :::
 
+````markdown
+:::code-group
+#### macOS
+```bash
+brew install cecil
+```
+#### Windows
+```powershell
+scoop install cecil
+```
+#### Linux
+```bash
+curl -LO https://cecil.app/cecil.phar
+```
+:::
+````
+
 Without headings, tabs are named after the language of each block:
 
 :::code-group
@@ -93,6 +135,18 @@ theme:
 {"theme": ["leon"]}
 ```
 :::
+
+````markdown
+:::code-group
+```yaml
+theme:
+  - leon
+```
+```json
+{"theme": ["leon"]}
+```
+:::
+````
 
 ## Steps
 
@@ -107,6 +161,19 @@ Run `php cecil.phar build`.
 Deploy the `_site` folder anywhere.
 :::
 
+````markdown
+:::steps
+#### Write
+Write your pages in Markdown.
+
+#### Build
+Run `php cecil.phar build`.
+
+#### Publish
+Deploy the `_site` folder anywhere.
+:::
+````
+
 ## Accordions
 
 :::accordion
@@ -117,12 +184,29 @@ A static site generator, written in PHP, that turns Markdown files into a websit
 Yes, and a native `<details>` element is styled as an accordion too.
 :::
 
+````markdown
+:::accordion
+#### What is Cecil?
+A static site generator, written in PHP, that turns Markdown files into a website.
+
+#### Can I use HTML?
+Yes, and a native `<details>` element is styled as an accordion too.
+:::
+````
+
 ## Cards
 
 :::cards
 - [Quickstart](../../getting-started/quickstart/): create a site from scratch
 - [Configuration](../../../reference/configuration/): every option of the theme
 :::
+
+````markdown
+:::cards
+- [Quickstart](../../getting-started/quickstart/): create a site from scratch
+- [Configuration](../../../reference/configuration/): every option of the theme
+:::
+````
 
 ## Nesting
 
@@ -148,6 +232,28 @@ Add `leon` to the `theme` list of your site.
 Run `cecil build`.
 ::::
 
+````markdown
+::::steps
+#### Install
+:::code-group
+```bash
+brew install cecil
+```
+```powershell
+scoop install cecil
+```
+:::
+
+#### Configure
+:::tip
+Add `leon` to the `theme` list of your site.
+:::
+
+#### Build
+Run `cecil build`.
+::::
+````
+
 ::::tabs
 #### Composer
 ```bash
@@ -161,10 +267,15 @@ Also install the required component themes.
 ::::
 
 ````markdown
-::::steps
-#### Configure
-:::tip
-Add `leon` to the `theme` list of your site.
+::::tabs
+#### Composer
+```bash
+composer require cecil/theme-leon
+```
+
+#### Archive
+:::warning
+Also install the required component themes.
 :::
 ::::
 ````
