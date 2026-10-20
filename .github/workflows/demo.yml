@@ -37,6 +37,9 @@ jobs:
       - name: Link theme into the demo site
         run: php demo/link.php
 
+      - name: Check links
+        run: php cecil.phar doctor:links demo --include-generated
+
       - name: Build demo
         run: php cecil.phar build demo -vv
 
