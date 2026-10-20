@@ -4,7 +4,10 @@ _Léon_ is a documentation theme for [Cecil](https://cecil.app), with a warm pal
 
 **[Demo](https://cecilapp.github.io/theme-leon/)**
 
-![Screenshot](docs/screenshot.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshot-dark.png">
+  <img src="docs/screenshot.png" alt="Screenshot">
+</picture>
 
 ## Features
 
