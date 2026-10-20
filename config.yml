@@ -1,5 +1,8 @@
-# Cecil config required by Léon
+# Cecil config required by Léon (Cecil 9.18+: overrides the defaults, overridden by the site)
 pages:
+  sortby: weight     # the `1-` prefix of the file name, or the `weight` front matter variable
+  pagination:
+    enabled: false   # cards list every child: no pager
   body:
     highlight:
       enabled: true
@@ -9,6 +12,15 @@ pages:
     links:
       embed:
         enabled: true
+# Markdown version of pages ("Copy page") and `llms.txt`, added to the default formats
+output:
+  pagetypeformats:
+    page:
+      markdown: true
+    section:
+      markdown: true
+    homepage:
+      llms: true
 # Léon options
 leon:
   accent: ''         # accent color (e.g. '#2563eb'), clay ('#D97757') by default

@@ -1,7 +1,7 @@
 ---
 title: Installation
 description: All the ways to install Léon and its dependencies.
-updated: 2026-10-01
+updated: 2026-10-21
 ---
 ## With Composer
 
@@ -23,4 +23,4 @@ Theme dependencies are not resolved automatically: download the [FlexSearch](htt
 
 | Software | Version |
 | -------- | ------- |
-| Cecil    | 9.11.1+ |
+| Cecil    | 9.18.0+ |

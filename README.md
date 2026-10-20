@@ -29,7 +29,7 @@ _Léon_ is a documentation theme for [Cecil](https://cecil.app), with a warm pal
 
 ## Installation
 
-Requires Cecil 9.12.0 or later.
+Requires Cecil 9.18.0 or later.
 
 ```bash
 composer require cecil/theme-leon
@@ -74,25 +74,21 @@ pages/
    └─ …
 ```
 
-Pages are ordered by `weight` (the `1-` prefix of the file name, or the `weight` front matter variable), so configure Cecil accordingly, and disable the pagination of sections:
-
-```yaml
-pages:
-  sortby: weight
-  pagination:
-    enabled: false
-```
+Pages are ordered by `weight` (the `1-` prefix of the file name, or the `weight` front matter variable), and sections are not paginated (their cards list every child page): Léon sets `pages.sortby: weight` and `pages.pagination.enabled: false`, which your configuration can still override.
 
 ### Markdown version and `llms.txt`
 
-Enable the `markdown` and `llms` output formats to provide a Markdown version of each page (used by the "Copy page" menu) and an `llms.txt` file:
+Léon adds the `markdown` output format to pages and sections, and the `llms` format to the home page: each page has a Markdown version (used by the "Copy page" menu), and the site an `llms.txt` file. To remove them, use a map of booleans:
 
 ```yaml
 output:
   pagetypeformats:
-    page: [html, markdown]
-    section: [html, markdown]
-    homepage: [html, llms]
+    page:
+      markdown: false
+    section:
+      markdown: false
+    homepage:
+      llms: false
 ```
 
 Without them, "Copy page" copies the text of the page, and "View as Markdown" is hidden.
@@ -150,7 +146,7 @@ Components are rendered in HTML when the site is built, by the `partials/notes/<
 
 ### Diagrams
 
-[Mermaid](https://mermaid.js.org) diagrams (` ```mermaid ` code blocks) are rendered to SVG by the [_Pele_](https://github.com/Cecilapp/theme-pele) component theme (requires Cecil 9.18 or later), with the colors and fonts of Léon, on graph paper:
+[Mermaid](https://mermaid.js.org) diagrams (` ```mermaid ` code blocks) are rendered to SVG by the [_Pele_](https://github.com/Cecilapp/theme-pele) component theme, with the colors and fonts of Léon, on graph paper:
 
 ```bash
 composer require cecil/theme-pele
@@ -165,6 +161,17 @@ theme:
 ```
 
 Without _Pele_, the Mermaid source is displayed as a code block. Its options are set under `pele:` (see [its documentation](https://github.com/Cecilapp/theme-pele#configuration)).
+
+### Syntax highlighting
+
+Code blocks are highlighted when the site is built, by [highlight.php](https://github.com/scrivo/highlight.php) by default. Léon also styles the output of [tempest/highlight](https://github.com/tempestphp/highlight), faster but limited to the languages of the web (PHP, HTML, CSS, JavaScript, JSON, YAML, Twig, SQL…; other languages are displayed without colors):
+
+```yaml
+pages:
+  body:
+    highlight:
+      engine: tempest
+```
 
 ### Front matter
 
@@ -269,7 +276,7 @@ The theme is translated in English and French: add a `translations/messages.<loc
 
 With `leon.language.suggest: true`, a banner suggests the translation of the page matching the browser language (written in that language). It stays displayed from page to page until the visitor follows it, closes it or chooses a language with the selector. Set it in the `leon` block of each language (see below).
 
-On a multilingual site, translate the options in the `config` key of each language. Cecil doesn't merge them with the default language: menus are not inherited at all, and a `leon` key replaces the whole `leon` block, so repeat it in full (`github` included, or the "Edit this page" link disappears):
+On a multilingual site, translate the options in the `config` key of each language. The `leon` block is merged with the one of the default language, so only set the translated keys, but menus are not inherited: repeat them in full.
 
 ```yaml
 languages:
@@ -289,9 +296,6 @@ languages:
         header:
           cta:
             name: Commencer
-            url: /docs/
-        github:
-          repo: https://github.com/<owner>/<repo>
         footer: 'Publié sous licence MIT.'
 ```
 

@@ -28,6 +28,8 @@ theme:
   - darkmodetoggle
 ```
 
+Nothing else to configure: Léon sorts the pages by weight and adds their Markdown version and the `llms.txt` file (see [Configuration](../../reference/1-configuration.md#cecil-options)).
+
 #### Preview
 ```bash
 php cecil.phar serve

@@ -21,17 +21,18 @@ leon:
     sections: []
   sidebar:
     collapsed: false
+  language:
+    suggest: false   # suggère la traduction correspondant à la langue du navigateur
   toc:
     enabled: true
   copypage:
     enabled: true
-    assistants: [claude, chatgpt]
+    assistants: [claude, chatgpt] # et/ou perplexity
   github:
     repo: ''
     branch: main
     path: pages
   lastupdated: false
-  social: {}         # liens sociaux du pied de page (ex. {github: …})
   footer: ''
 ```
 
@@ -55,14 +56,38 @@ logo:
 Si le logo contient déjà le nom du site, masquez le titre avec `leon.header.title: false`.
 :::
 
-## Formats de sortie
+## Options de Cecil
 
-Pour activer la version Markdown des pages et le fichier `llms.txt` :
+Léon configure Cecil pour un site de documentation : votre configuration peut surcharger chacune de ces options.
 
 ```yaml
+pages:
+  sortby: weight     # le préfixe `1-` du nom de fichier, ou la variable `weight`
+  pagination:
+    enabled: false   # les cartes d'une section listent toutes ses pages
 output:
   pagetypeformats:
-    page: [html, markdown]
-    section: [html, markdown]
-    homepage: [html, llms]
+    page:
+      markdown: true # version Markdown des pages (« Copier la page »)
+    section:
+      markdown: true
+    homepage:
+      llms: true     # fichier `llms.txt`
 ```
+
+Pour retirer un format de sortie, passez-le à `false` : un tableau de booléens ajoute ou retire un format sans remplacer les autres.
+
+## Coloration syntaxique
+
+Les blocs de code sont colorés par highlight.php par défaut. Léon met aussi en forme le résultat de tempest/highlight, plus rapide mais limité aux langages du web :
+
+```yaml
+pages:
+  body:
+    highlight:
+      engine: tempest # `highlightjs` par défaut
+```
+
+:::note
+Avec tempest/highlight, les langages qu'il ne connaît pas (Bash, PowerShell, Markdown…) sont affichés sans couleurs.
+:::

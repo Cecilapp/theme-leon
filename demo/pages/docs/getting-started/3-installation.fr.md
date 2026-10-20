@@ -1,7 +1,7 @@
 ---
 title: Installation
 description: Toutes les façons d'installer Léon et ses dépendances.
-updated: 2026-10-01
+updated: 2026-10-21
 ---
 ## Avec Composer
 
@@ -23,4 +23,4 @@ Les dépendances de thèmes ne sont pas résolues automatiquement : télécharge
 
 | Logiciel | Version |
 | -------- | ------- |
-| Cecil    | 9.11.1+ |
+| Cecil    | 9.18.0+ |
