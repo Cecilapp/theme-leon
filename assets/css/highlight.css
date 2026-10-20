@@ -1,6 +1,6 @@
-/* Syntax highlighting (highlight.php / highlight.js classes), GitHub-like palette */
+/* Syntax highlighting (highlight.php `hljs-*` or tempest/highlight `hl-*` classes), GitHub-like palette */
 @layer components {
-  .leon-content .hljs {
+  .leon-content :is(.hljs, .hl) {
     --hl-keyword: #cf222e;
     --hl-title: #8250df;
     --hl-string: #0a3069;
@@ -13,7 +13,7 @@
     --hl-deletion: #82071e;
     --hl-deletion-bg: #ffebe9;
   }
-  :is(.dark, [data-theme="dark"]) .leon-content .hljs {
+  :is(.dark, [data-theme="dark"]) .leon-content :is(.hljs, .hl) {
     --hl-keyword: #ff7b72;
     --hl-title: #d2a8ff;
     --hl-string: #a5d6ff;
@@ -72,6 +72,56 @@
     & .hljs-deletion {
       color: var(--hl-deletion);
       background-color: var(--hl-deletion-bg);
+    }
+  }
+  /* tempest/highlight (`pages.body.highlight.engine: tempest`) */
+  .leon-content .hl {
+    & .hl-keyword {
+      color: var(--hl-keyword);
+    }
+    & :is(.hl-property, .hl-generic) {
+      color: var(--hl-title);
+    }
+    & .hl-type {
+      color: var(--hl-builtin);
+    }
+    & .hl-value {
+      color: var(--hl-string);
+    }
+    & .hl-variable {
+      color: var(--hl-number);
+    }
+    & :is(.hl-comment, .hl-comment span) {
+      color: var(--hl-comment);
+      font-style: italic;
+    }
+    & :is(.hl-attribute, .hl-em) {
+      font-style: italic;
+    }
+    & .hl-strong {
+      font-weight: 600;
+    }
+    & .hl-blur {
+      filter: blur(2px);
+    }
+    & .hl-addition {
+      display: inline-block;
+      min-width: 100%;
+      color: var(--hl-addition);
+      background-color: var(--hl-addition-bg);
+    }
+    & .hl-deletion {
+      display: inline-block;
+      min-width: 100%;
+      color: var(--hl-deletion);
+      background-color: var(--hl-deletion-bg);
+    }
+    & .hl-gutter {
+      display: inline-block;
+      margin-right: 1ch;
+      padding: 0 1ch;
+      color: var(--hl-comment);
+      user-select: none;
     }
   }
 }
